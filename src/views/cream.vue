@@ -1,7 +1,6 @@
 <template>
   <div>
     <nv-header></nv-header>
-    <div class="container-body"></div>
   </div>
 </template>
 <style lang="scss">
@@ -31,7 +30,7 @@
     methods: {
       routeEnter() {
         this.NAV_LIST.forEach((nav, index) => {
-          if (nav.routerName === 'index') {
+          if (nav.routerName === 'cream') {
             this.$store.dispatch({
               type: CHANGE_NAV,
               nav

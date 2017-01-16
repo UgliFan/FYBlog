@@ -1,24 +1,24 @@
 <template>
   <div>
-    <nv-header></nv-header>
-    <div class="container-body"></div>
+    <nv-header :func-info="funcInfo" :callback="nvCallBack"></nv-header>
   </div>
 </template>
 <style lang="scss">
 
 </style>
 <script>
-  import { mapGetters } from 'vuex';
   import { CHANGE_NAV } from '../vuex/actions';
   import nvHeader from '../components/Header.vue';
 
   export default {
     data() {
-      return {};
+      return {
+        funcInfo: {
+          needBack: true,
+          backRoute: 'index'
+        }
+      };
     },
-    computed: mapGetters([
-      'NAV_LIST'
-    ]),
     components: {
       nvHeader
     },
@@ -30,14 +30,16 @@
     },
     methods: {
       routeEnter() {
-        this.NAV_LIST.forEach((nav, index) => {
-          if (nav.routerName === 'index') {
-            this.$store.dispatch({
-              type: CHANGE_NAV,
-              nav
-            });
+        this.$store.dispatch({
+          type: CHANGE_NAV,
+          nav: {
+            name: '编辑文章',
+            routerName: 'new'
           }
         });
+      },
+      nvCallBack() {
+
       }
     }
   };
