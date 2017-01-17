@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nv-header></nv-header>
+    <nv-header :func-type="1" :callback="sendIssue"></nv-header>
   </div>
 </template>
 <style lang="scss">
@@ -29,14 +29,16 @@
     },
     methods: {
       routeEnter() {
-        this.NAV_LIST.forEach((nav, index) => {
-          if (nav.routerName === 'issue') {
-            this.$store.dispatch({
-              type: CHANGE_NAV,
-              nav
-            });
+        this.$store.dispatch({
+          type: CHANGE_NAV,
+          nav: {
+            name: '联系我们',
+            routerName: 'issue'
           }
         });
+      },
+      sendIssue() {
+
       }
     }
   };

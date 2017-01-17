@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nv-header :func-info="funcInfo" :callback="nvCallBack"></nv-header>
+    <nv-header :func-type="funcType" :callback="saveBlog"></nv-header>
   </div>
 </template>
 <style lang="scss">
@@ -13,10 +13,7 @@
   export default {
     data() {
       return {
-        funcInfo: {
-          needBack: true,
-          backRoute: 'index'
-        }
+        funcType: 1
       };
     },
     components: {
@@ -38,7 +35,7 @@
           }
         });
       },
-      nvCallBack() {
+      saveBlog() {
 
       }
     }

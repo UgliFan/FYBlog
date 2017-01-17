@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nv-header></nv-header>
+    <nv-header :func-type="2"></nv-header>
   </div>
 </template>
 <style lang="scss">

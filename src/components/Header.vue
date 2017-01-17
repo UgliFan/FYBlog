@@ -3,9 +3,10 @@
     <header>
       <div @click="triggerSlide" :class="['header-btn', 'more-icon', {'active': NAV_STAT}]"><i class="iconfont icon-more"></i></div>
       <span class="title" v-text="ACTIVE_NAV.name">推荐</span>
-      <router-link v-if="!funcInfo.needBack" class="header-btn new" :to="{'name': 'new'}"><i class="iconfont icon-write"></i></router-link>
-      <router-link v-if="funcInfo.needBack" class="header-btn back" :to="{'name': funcInfo.backRoute}"><i class="iconfont icon-back"></i></router-link>
-      <a v-if="funcInfo.needBack" class="header-btn ok" href="javascript:;" @click="saveClick"><i class="iconfont icon-check"></i></a>
+      <router-link v-if="funcType === 0" class="header-btn new" :to="{'name': 'new'}"><i class="iconfont icon-write"></i></router-link>
+      <a v-if="funcType === 1" class="header-btn back" @click="goBack"><i class="iconfont icon-back"></i></a>
+      <a v-if="funcType === 1" class="header-btn ok" href="javascript:;" @click="saveClick"><i class="iconfont icon-check"></i></a>
+      <router-link v-if="funcType === 2" class="header-btn new" :to="{'name': 'issue'}"><i class="iconfont icon-message"></i></router-link>
     </header>
     <SideNav :nav-stat="NAV_STAT"></SideNav>
   </div>
@@ -75,19 +76,14 @@
       'NAV_STAT', 'ACTIVE_NAV'
     ]),
     props: {
-      funcInfo: {
-        type: Object,
-        default: function() {
-          return {
-            needBack: false,
-            backRoute: 'index'
-          };
-        }
+      funcType: {
+        type: Number,
+        default: 0
       },
       callback: {
         type: Function,
         default: function() {
-          return function() {};
+          return () => {};
         }
       }
     },
@@ -103,6 +99,9 @@
           type: TRIGGER_NAV,
           status: true
         });
+      },
+      goBack() {
+        this.$router.go(-1);
       },
       saveClick() {
         this.callback();
