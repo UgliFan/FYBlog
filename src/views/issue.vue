@@ -1,10 +1,13 @@
 <template>
   <div>
     <nv-header :func-type="1" :callback="sendIssue"></nv-header>
+    <section class="container-body">
+      <div class="comming-soom">即将到来</div>
+    </section>
   </div>
 </template>
 <style lang="scss">
-
+  @import '../styles/variable.scss';
 </style>
 <script>
   import { mapGetters } from 'vuex';
@@ -32,7 +35,7 @@
         this.$store.dispatch({
           type: CHANGE_NAV,
           nav: {
-            name: '联系我们',
+            name: '我要提问',
             routerName: 'issue'
           }
         });

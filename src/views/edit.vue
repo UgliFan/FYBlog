@@ -1,9 +1,13 @@
 <template>
   <div>
     <nv-header :func-type="1" :callback="saveBlog"></nv-header>
+    <section class="container-body">
+      <div class="comming-soom">即将到来</div>
+    </section>
   </div>
 </template>
 <style lang="scss">
+  @import '../styles/variable.scss';
 
 </style>
 <script>

@@ -152,7 +152,7 @@
     props: {
       blog: {
         type: Object,
-        require: true
+        required: true
       }
     }
   };

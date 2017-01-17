@@ -24,10 +24,10 @@ const store = new Vuex.Store({
       className: 'cream',
       icon: 'iconfont icon-hot'
     }, {
-      name: '帮助',
+      name: 'Q&A',
       routerName: 'help',
       className: 'help',
-      icon: 'iconfont icon-info'
+      icon: 'iconfont icon-question'
     }],
     activeNav: {},
     userInfo: {

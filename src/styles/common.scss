@@ -7,6 +7,12 @@ body {
 .container {
   height: 100%;
   padding-top: 60px;
+  .comming-soom {
+    text-align: center;
+    padding: 60px 0;
+    font-size: 40px;
+    color: $graySt;
+  }
 }
 
 .fade-enter-active, .fade-leave-active {

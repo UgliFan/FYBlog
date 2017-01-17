@@ -138,7 +138,7 @@
     props: {
       navStat: {
         type: Boolean,
-        require: true
+        required: true
       }
     },
     watch: {
