@@ -1,14 +1,18 @@
 @import './variable.scss';
 
 body {
-  perspective: 800px;
-  perspective-origin: center bottom;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .container {
   height: 100%;
   padding-top: 60px;
+  .comming-soom {
+    text-align: center;
+    padding: 60px 0;
+    font-size: 40px;
+    color: $graySt;
+  }
 }
 
 .fade-enter-active, .fade-leave-active {
@@ -20,11 +24,11 @@ body {
 }
 
 .page-enter-active, .page-leave-active {
-  transform: rotateX(0deg);
+  transform: scale(1);
   opacity: 1;
   transition: all .3s linear;
 }
 .page-enter, .page-leave-active {
   opacity: 0;
-  transform: rotateX(10deg);
+  transform: scale(.95);
 }

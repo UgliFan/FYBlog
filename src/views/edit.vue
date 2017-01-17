@@ -1,9 +1,13 @@
 <template>
   <div>
-    <nv-header :func-info="funcInfo" :callback="nvCallBack"></nv-header>
+    <nv-header :func-type="1" :callback="saveBlog"></nv-header>
+    <section class="container-body">
+      <div class="comming-soom">即将到来</div>
+    </section>
   </div>
 </template>
 <style lang="scss">
+  @import '../styles/variable.scss';
 
 </style>
 <script>
@@ -13,10 +17,6 @@
   export default {
     data() {
       return {
-        funcInfo: {
-          needBack: true,
-          backRoute: 'index'
-        }
       };
     },
     components: {
@@ -38,7 +38,7 @@
           }
         });
       },
-      nvCallBack() {
+      saveBlog() {
 
       }
     }

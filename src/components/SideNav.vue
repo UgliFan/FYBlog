@@ -2,11 +2,15 @@
   <transition name="fade">
     <section class="side-nav" v-show="navStat" @click="closeNav">
       <div class="user-info">
-        <img v-if="USER_INFO.icon" class="img-icon" src="userInfo.icon" />
+        <img v-if="USER_INFO.icon" class="img-icon" :src="USER_INFO.icon" />
         <div v-if="!USER_INFO.icon" class="img-icon"><i class="iconfont icon-people"></i></div>
         <router-link v-if="!USER_INFO.id" class="btn login" :to="{'name': 'login'}">登录</router-link>
         <a v-if="!USER_INFO.id" class="btn register" href="javascript:;" @click="register">注册</a>
-        <h4 v-if="USER_INFO.id" v-text="USER_INFO.name"></h4>
+        <div v-if="USER_INFO.id" class="user-params">
+          <h4 v-if="USER_INFO.id" v-text="USER_INFO.name"></h4><br/>
+          <i :class="['iconfont', {'icon-male': USER_INFO.sex === 'male', 'icon-female': USER_INFO.sex === 'female'}]"></i>
+          <span>{{USER_INFO.groupId === 0 ? '管理员' : '普通会员'}}</span>
+        </div>
       </div>
       <transition-group name="rotate" tag="div">
         <router-link v-for="nav in navList" :class="['nav-item', nav.className]" :to="{'name':nav.routerName}" :key="nav"><i :class="nav.icon"></i><span v-text="nav.name"></span></router-link>
@@ -26,6 +30,7 @@
     perspective: 600px;
     padding: 180px 0 0;
     overflow: hidden;
+    z-index: 9000;
     .nav-item {
       display: block;
       width: 80%;
@@ -109,14 +114,53 @@
           color: $blue;
         }
       }
-      h4 {
-        font-size: 20px;
-        font-weight: 500;
-        color: $white;
+      .user-params {
         display: inline-block;
-        line-height: 30px;
         vertical-align: middle;
-        margin-left: 20px;
+        line-height: 1;
+        text-align: left;
+        h4 {
+          font-size: 20px;
+          font-weight: 500;
+          color: $white;
+          display: inline-block;
+          line-height: 20px;
+          vertical-align: top;
+          margin-left: 20px;
+          margin-bottom: 10px;
+        }
+        i {
+          display: inline-block;
+          vertical-align: top;
+          width: 24px;
+          height: 24px;
+          line-height: 26px;
+          text-align: center;
+          font-size: 18px;
+          border-radius: 50%;
+          color: $white;
+          margin-left: 20px;
+          &.icon-male {
+            background-color: $blue;
+          }
+          &.icon-female {
+            line-height: 24px;
+            background-color: $pink;
+          }
+        }
+        span {
+          display: inline-block;
+          vertical-align: top;
+          line-height: 22px;
+          height: 24px;
+          padding: 0 10px;
+          text-align: center;
+          font-size: 14px;
+          border-radius: $radius;
+          border: 1px solid $white;
+          color: $white;
+          margin-left: 10px;
+        }
       }
     }
   }
@@ -137,12 +181,11 @@
     props: {
       navStat: {
         type: Boolean,
-        require: true
+        required: true
       }
     },
     watch: {
       navStat() {
-        console.log('[navStat: Watch]', this.navStat);
         if (this.navStat) {
           this.navList = this.NAV_LIST;
         } else {

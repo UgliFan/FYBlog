@@ -3,9 +3,11 @@
     <header>
       <div @click="triggerSlide" :class="['header-btn', 'more-icon', {'active': NAV_STAT}]"><i class="iconfont icon-more"></i></div>
       <span class="title" v-text="ACTIVE_NAV.name">推荐</span>
-      <router-link v-if="!funcInfo.needBack" class="header-btn new" :to="{'name': 'new'}"><i class="iconfont icon-write"></i></router-link>
-      <router-link v-if="funcInfo.needBack" class="header-btn back" :to="{'name': funcInfo.backRoute}"><i class="iconfont icon-back"></i></router-link>
-      <a v-if="funcInfo.needBack" class="header-btn ok" href="javascript:;" @click="saveClick"><i class="iconfont icon-check"></i></a>
+      <router-link v-if="funcType === 0" class="header-btn new" :to="{'name': 'new'}"><i class="iconfont icon-write"></i></router-link>
+      <a v-if="funcType === 1" class="header-btn back" @click="goBack"><i class="iconfont icon-back"></i></a>
+      <a v-if="funcType === 1" class="header-btn ok" href="javascript:;" @click="saveClick"><i class="iconfont icon-check"></i></a>
+      <router-link v-if="funcType === 2" class="header-btn new" :to="{'name': 'issue'}"><i class="iconfont icon-message"></i></router-link>
+      <a v-if="funcType === 3" class="header-btn back-only" @click="goBack"><i class="iconfont icon-back"></i></a>
     </header>
     <SideNav :nav-stat="NAV_STAT"></SideNav>
   </div>
@@ -27,8 +29,9 @@
     width: 100%;
     height: 60px;
     text-align: center;
-    background: $white;
+    background: rgba(255,255,255,.9);
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    z-index: 9000;
     .header-btn {
       position: absolute;
       width: 60px;
@@ -51,6 +54,10 @@
         right: 60px;
         color: $grayer;
       }
+      &.back-only {
+        right: 0;
+        color: $grayer;
+      }
       &.active {
         transform: rotateZ(-90deg);
       }
@@ -59,6 +66,13 @@
       line-height: 60px;
       font-size: 20px;
       color: $blackSt;
+      display: inline-block;
+      vertical-align: middle;
+      width: 100%;
+      padding: 0 70px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 </style>
@@ -75,24 +89,16 @@
       'NAV_STAT', 'ACTIVE_NAV'
     ]),
     props: {
-      funcInfo: {
-        type: Object,
-        default: function() {
-          return {
-            needBack: false,
-            backRoute: 'index'
-          };
-        }
+      funcType: {
+        type: Number,
+        default: 0
       },
       callback: {
         type: Function,
         default: function() {
-          return function() {};
+          return () => {};
         }
       }
-    },
-    mounted() {
-      console.log('[header.vue: Mounted]');
     },
     components: {
       SideNav
@@ -103,6 +109,9 @@
           type: TRIGGER_NAV,
           status: true
         });
+      },
+      goBack() {
+        this.$router.go(-1);
       },
       saveClick() {
         this.callback();
