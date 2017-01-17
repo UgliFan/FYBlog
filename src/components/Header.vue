@@ -7,6 +7,7 @@
       <a v-if="funcType === 1" class="header-btn back" @click="goBack"><i class="iconfont icon-back"></i></a>
       <a v-if="funcType === 1" class="header-btn ok" href="javascript:;" @click="saveClick"><i class="iconfont icon-check"></i></a>
       <router-link v-if="funcType === 2" class="header-btn new" :to="{'name': 'issue'}"><i class="iconfont icon-message"></i></router-link>
+      <a v-if="funcType === 3" class="header-btn back-only" @click="goBack"><i class="iconfont icon-back"></i></a>
     </header>
     <SideNav :nav-stat="NAV_STAT"></SideNav>
   </div>
@@ -28,8 +29,9 @@
     width: 100%;
     height: 60px;
     text-align: center;
-    background: $white;
+    background: rgba(255,255,255,.9);
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    z-index: 9000;
     .header-btn {
       position: absolute;
       width: 60px;
@@ -52,6 +54,10 @@
         right: 60px;
         color: $grayer;
       }
+      &.back-only {
+        right: 0;
+        color: $grayer;
+      }
       &.active {
         transform: rotateZ(-90deg);
       }
@@ -60,6 +66,13 @@
       line-height: 60px;
       font-size: 20px;
       color: $blackSt;
+      display: inline-block;
+      vertical-align: middle;
+      width: 100%;
+      padding: 0 70px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 </style>
@@ -86,9 +99,6 @@
           return () => {};
         }
       }
-    },
-    mounted() {
-      console.log('[header.vue: Mounted]');
     },
     components: {
       SideNav

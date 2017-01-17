@@ -1,9 +1,7 @@
 @import './variable.scss';
 
 body {
-  perspective: 800px;
-  perspective-origin: center bottom;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .container {
@@ -20,11 +18,11 @@ body {
 }
 
 .page-enter-active, .page-leave-active {
-  transform: rotateX(0deg);
+  transform: scale(1);
   opacity: 1;
   transition: all .3s linear;
 }
 .page-enter, .page-leave-active {
   opacity: 0;
-  transform: rotateX(10deg);
+  transform: scale(.95);
 }

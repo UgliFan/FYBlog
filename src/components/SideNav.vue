@@ -26,6 +26,7 @@
     perspective: 600px;
     padding: 180px 0 0;
     overflow: hidden;
+    z-index: 9000;
     .nav-item {
       display: block;
       width: 80%;
@@ -142,7 +143,6 @@
     },
     watch: {
       navStat() {
-        console.log('[navStat: Watch]', this.navStat);
         if (this.navStat) {
           this.navList = this.NAV_LIST;
         } else {

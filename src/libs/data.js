@@ -66,4 +66,16 @@ store.getBlogList = () => {
   });
 };
 
+store.getBlogInfo = (id) => {
+  return new Promise((resolve, reject) => {
+    ajax_get({
+      url: `//back.fyq2yj.cn/blog/get_html/${id}`
+    }).then(data => {
+      resolve(data);
+    }, err => {
+      reject(err);
+    });
+  });
+};
+
 export default store;

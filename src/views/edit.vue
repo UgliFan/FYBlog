@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nv-header :func-type="funcType" :callback="saveBlog"></nv-header>
+    <nv-header :func-type="1" :callback="saveBlog"></nv-header>
   </div>
 </template>
 <style lang="scss">
@@ -13,7 +13,6 @@
   export default {
     data() {
       return {
-        funcType: 1
       };
     },
     components: {
