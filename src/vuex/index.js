@@ -32,7 +32,10 @@ const store = new Vuex.Store({
     activeNav: {},
     userInfo: {
       id: '123',
-      name: 'UgliFan'
+      icon: '//back.fyq2yj.cn/images/404.jpg',
+      name: 'UgliFan',
+      sex: 'male',
+      groupId: 0
     }
   },
   getters: {

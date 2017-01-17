@@ -1,10 +1,10 @@
 
 @font-face {font-family: "iconfont";
-  src: url('iconfont.eot?t=1484640487573'); /* IE9*/
-  src: url('iconfont.eot?t=1484640487573#iefix') format('embedded-opentype'), /* IE6-IE8 */
-  url('iconfont.woff?t=1484640487573') format('woff'), /* chrome, firefox */
-  url('iconfont.ttf?t=1484640487573') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
-  url('iconfont.svg?t=1484640487573#iconfont') format('svg'); /* iOS 4.1- */
+  src: url('iconfont.eot?t=1484656306156'); /* IE9*/
+  src: url('iconfont.eot?t=1484656306156#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('iconfont.woff?t=1484656306156') format('woff'), /* chrome, firefox */
+  url('iconfont.ttf?t=1484656306156') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('iconfont.svg?t=1484656306156#iconfont') format('svg'); /* iOS 4.1- */
 }
 
 .iconfont {
@@ -209,6 +209,10 @@
 .icon-skinfill:before { content: "\e7cc"; }
 
 .icon-skin:before { content: "\e7cd"; }
+
+.icon-male:before { content: "\e64d"; }
+
+.icon-female:before { content: "\e610"; }
 
 .icon-global:before { content: "\e7eb"; }
 
