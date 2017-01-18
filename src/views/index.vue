@@ -2,28 +2,41 @@
   <div>
     <nv-header></nv-header>
     <section class="container-body">
-      <div class="comming-soom">即将到来</div>
+      <swipe :swipe-list="swipeList"></swipe>
+      <ul class="recommend-list">
+        <blog-item v-for="recom in recomList" :key="recom" :blog="recom"></blog-item>
+      </ul>
     </section>
   </div>
 </template>
 <style lang="scss">
   @import '../styles/variable.scss';
-
+  .recommend-list {
+    .blog-item {
+      border-bottom: 1px solid $borderYellow;
+    }
+  }
 </style>
 <script>
   import { mapGetters } from 'vuex';
   import { CHANGE_NAV } from '../vuex/actions';
   import nvHeader from '../components/Header.vue';
+  import Swipe from '../components/Swipe.vue';
+  import BlogItem from '../components/BlogItem.vue';
+  import store from '../libs/data';
 
   export default {
     data() {
-      return {};
+      return {
+        swipeList: [],
+        recomList: []
+      };
     },
     computed: mapGetters([
       'NAV_LIST'
     ]),
     components: {
-      nvHeader
+      nvHeader, Swipe, BlogItem
     },
     mounted() {
       this.routeEnter();
@@ -40,6 +53,10 @@
               nav
             });
           }
+        });
+        store.getBlogList().then(data => {
+          this.swipeList = data.result.slice(0, 5);
+          this.recomList = data.result.slice(0, 10);
         });
       }
     }
