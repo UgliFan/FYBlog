@@ -4,10 +4,10 @@
       <div class="user-info">
         <img v-if="USER_INFO.icon" class="img-icon" :src="USER_INFO.icon" />
         <div v-if="!USER_INFO.icon" class="img-icon"><i class="iconfont icon-people"></i></div>
-        <router-link v-if="!USER_INFO.id" class="btn login" :to="{'name': 'login'}">登录</router-link>
-        <a v-if="!USER_INFO.id" class="btn register" href="javascript:;" @click="register">注册</a>
-        <div v-if="USER_INFO.id" class="user-params">
-          <h4 v-if="USER_INFO.id" v-text="USER_INFO.name"></h4><br/>
+        <router-link v-if="!USER_INFO._id" class="btn login" :to="{'name': 'login'}">登录</router-link>
+        <a v-if="!USER_INFO._id" class="btn register" href="javascript:;" @click="register">注册</a>
+        <div v-if="USER_INFO._id" class="user-params">
+          <h4 v-text="USER_INFO.name"></h4><br/>
           <i :class="['iconfont', {'icon-male': USER_INFO.sex === 'male', 'icon-female': USER_INFO.sex === 'female'}]"></i>
           <span>{{USER_INFO.groupId === 0 ? '管理员' : '普通会员'}}</span>
         </div>

@@ -3,6 +3,7 @@
     <nv-header></nv-header>
     <section class="container-body">
       <swipe :swipe-list="swipeList"></swipe>
+      <h4 class="recommend-title">精选推荐 Top 5.</h4>
       <ul class="recommend-list">
         <blog-item v-for="recom in recomList" :key="recom" :blog="recom"></blog-item>
       </ul>
@@ -11,6 +12,15 @@
 </template>
 <style lang="scss">
   @import '../styles/variable.scss';
+  .recommend-title {
+    font-size: 20px;
+    line-height: 22px;
+    height: 40px;
+    padding: 10px;
+    border-left: 6px solid $red;
+    background: $bgRed;
+    color: $red;
+  }
   .recommend-list {
     .blog-item {
       border-bottom: 1px solid $borderYellow;
@@ -56,7 +66,7 @@
         });
         store.getBlogList().then(data => {
           this.swipeList = data.result.slice(0, 5);
-          this.recomList = data.result.slice(0, 10);
+          this.recomList = data.result.slice(0, 5);
         });
       }
     }

@@ -30,13 +30,7 @@ const store = new Vuex.Store({
       icon: 'iconfont icon-question'
     }],
     activeNav: {},
-    userInfo: {
-      id: '123',
-      icon: '//back.fyq2yj.cn/images/404.jpg',
-      name: 'UgliFan',
-      sex: 'male',
-      groupId: 0
-    }
+    userInfo: {}
   },
   getters: {
     NAV_STAT(state) {

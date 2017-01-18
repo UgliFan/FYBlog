@@ -1,13 +1,20 @@
 <template>
   <section class="comment-area">
-    <h4>评论 ({{commentCount}})</h4>
+    <h4>评论（{{commentCount}}）</h4>
   </section>
 </template>
 <style lang="scss">
   @import '../styles/variable.scss';
   .comment-area {
-    border-top: 20px solid $info;
-    padding: 10px;
+    h4 {
+      color: $blackSt;
+      background: $bgGray;
+      line-height: 22px;
+      font-size: 20px;
+      height: 40px;
+      border-left: 6px solid $blue;
+      padding: 10px;
+    }
   }
 </style>
 <script>
