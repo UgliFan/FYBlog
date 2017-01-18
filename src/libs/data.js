@@ -81,7 +81,7 @@ store.getBlogInfo = (id) => {
 store.postLogin = (userName, password) => {
   return new Promise((resolve, reject) => {
     ajax_post({
-      url: `//localhost:8823/user/login`,
+      url: `//back.fyq2yj.cn/user/login`,
       data: {
         name: userName,
         password: password
