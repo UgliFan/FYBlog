@@ -28,7 +28,7 @@ var ajax_post = (params) => {
     type: 'post'
   };
   return new Promise((resolve,reject)=>{
-    $.ajax($.extend(false,{}, defaultParam, params)).success(data => {
+    $.ajax($.extend(false,{}, defaultParam, params)).done(data => {
       data = typeof data === 'string' ? $.parseJSON(data) : data;
       resolve(data);
     }).fail(() => {
@@ -71,6 +71,23 @@ store.getBlogInfo = (id) => {
     ajax_get({
       url: `//back.fyq2yj.cn/blog/get_html/${id}`
     }).then(data => {
+      resolve(data);
+    }, err => {
+      reject(err);
+    });
+  });
+};
+
+store.postLogin = (userName, password) => {
+  return new Promise((resolve, reject) => {
+    ajax_post({
+      url: `//localhost:8823/user/login`,
+      data: {
+        name: userName,
+        password: password
+      }
+    }).then(data => {
+      console.log('post success');
       resolve(data);
     }, err => {
       reject(err);

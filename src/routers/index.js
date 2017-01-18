@@ -39,6 +39,11 @@ const Login = resolve => {
     resolve(require('../views/login.vue'));
   });
 };
+const Register = resolve => {
+  require.ensure(['../views/register.vue'], () => {
+    resolve(require('../views/register.vue'));
+  });
+};
 
 const routers = [{
   path: '/',
@@ -72,6 +77,10 @@ const routers = [{
   path: '/login',
   name: 'login',
   component: Login
+}, {
+  path: '/register',
+  name: 'register',
+  component: Register
 }];
 
 export default routers;
