@@ -3,11 +3,11 @@
     <header>
       <div @click="triggerSlide" :class="['header-btn', 'more-icon', {'active': NAV_STAT}]"><i class="iconfont icon-more"></i></div>
       <span class="title" v-text="ACTIVE_NAV.name">推荐</span>
-      <router-link v-if="funcType === 0" class="header-btn new" :to="{'name': 'new'}"><i class="iconfont icon-write"></i></router-link>
-      <a v-if="funcType === 1" class="header-btn back" @click="goBack"><i class="iconfont icon-back"></i></a>
-      <a v-if="funcType === 1" class="header-btn ok" href="javascript:;" @click="saveClick"><i class="iconfont icon-check"></i></a>
-      <router-link v-if="funcType === 2" class="header-btn new" :to="{'name': 'issue'}"><i class="iconfont icon-message"></i></router-link>
-      <a v-if="funcType === 3" class="header-btn back-only" @click="goBack"><i class="iconfont icon-back"></i></a>
+      <a v-if="funcType === 0" class="header-btn new" @click="routeGo('new')" href="javascript:;"><i class="iconfont icon-write"></i></a>
+      <a v-if="funcType === 1" class="header-btn back" @click="goBack" href="javascript:;"><i class="iconfont icon-back"></i></a>
+      <a v-if="funcType === 1" class="header-btn ok" @click="saveClick" href="javascript:;"><i class="iconfont icon-check"></i></a>
+      <a v-if="funcType === 2" class="header-btn new" @click="routeGo('issue')" href="javascript:;"><i class="iconfont icon-message"></i></a>
+      <a v-if="funcType === 3" class="header-btn back-only" @click="goBack" href="javascript:;"><i class="iconfont icon-back"></i></a>
     </header>
     <SideNav :nav-stat="NAV_STAT"></SideNav>
     <message></message>
@@ -114,6 +114,17 @@
       },
       goBack() {
         this.$router.go(-1);
+      },
+      routeGo(name) {
+        if (window.sessionStorage && window.sessionStorage.user && window.sessionStorage.user._id) {
+          this.$router.push({
+            name: name
+          });
+        } else {
+          this.$router.push({
+            name: 'login'
+          });
+        }
       },
       saveClick() {
         this.callback();

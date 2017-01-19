@@ -22,7 +22,7 @@
     </section>
   </div>
 </template>
-<style lang="scss">
+<style lang="scss" scoped>
   @import '../styles/variable.scss';
   .is-login {
     text-align: center;

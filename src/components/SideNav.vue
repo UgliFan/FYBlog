@@ -4,8 +4,8 @@
       <div class="user-info">
         <img v-if="USER_INFO.icon" class="img-icon" :src="USER_INFO.icon" />
         <div v-if="!USER_INFO.icon" class="img-icon"><i class="iconfont icon-people"></i></div>
-        <router-link v-if="!USER_INFO._id" class="btn login" :to="{'name': 'login'}">登录</router-link>
-        <a v-if="!USER_INFO._id" class="btn register" href="javascript:;" @click="register">注册</a>
+        <router-link v-if="!USER_INFO._id" class="btn login" :to="{name: 'login'}">登录</router-link>
+        <router-link v-if="!USER_INFO._id" class="btn register" :to="{name: 'register'}">注册</router-link>
         <div v-if="USER_INFO._id" class="user-params">
           <h4 v-text="USER_INFO.name"></h4><br/>
           <i :class="['iconfont', {'icon-male': USER_INFO.sex === 'male', 'icon-female': USER_INFO.sex === 'female'}]"></i>
@@ -199,10 +199,6 @@
           type: TRIGGER_NAV,
           status: false
         });
-      },
-      register() {
-        let rdt = encodeURIComponent(location.href);
-        location.href = `//back.fyq2yj.cn/register?rdt=${rdt}`;
       }
     }
   };
