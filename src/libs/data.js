@@ -123,7 +123,7 @@ store.commitReply = (comment) => {
 store.secondReply = (id, comment) => {
   return new Promise((resolve, reject) => {
     ajax_post({
-      url: `//localhost:8823/comment/reply/${id}`,
+      url: `//back.fyq2yj.cn/comment/reply/${id}`,
       data: comment
     }).then(data => {
       resolve(data);
