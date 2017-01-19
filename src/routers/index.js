@@ -14,6 +14,11 @@ const Detail = resolve => {
     resolve(require('../views/detail.vue'));
   });
 };
+const Reply = resolve => {
+  require.ensure(['../views/reply.vue'], () => {
+    resolve(require('../views/reply.vue'));
+  });
+};
 const Edit = resolve => {
   require.ensure(['../views/edit.vue'], () => {
     resolve(require('../views/edit.vue'));
@@ -57,6 +62,10 @@ const routers = [{
   path: '/detail/:id',
   name: 'detail',
   component: Detail
+}, {
+  path: '/reply/:id',
+  name: 'reply',
+  component: Reply
 }, {
   path: '/new',
   name: 'new',

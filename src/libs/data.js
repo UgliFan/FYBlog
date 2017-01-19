@@ -77,6 +77,20 @@ store.getBlogInfo = (id) => {
     });
   });
 };
+store.getBlogComment = (id) => {
+  return new Promise((resolve, reject) => {
+    ajax_get({
+      url: `//back.fyq2yj.cn/comment/page/${id}`,
+      data: {
+        sortorder: 'asc'
+      }
+    }).then(data => {
+      resolve(data);
+    }, err => {
+      reject(err);
+    });
+  });
+};
 
 store.postLogin = (userName, password) => {
   return new Promise((resolve, reject) => {
@@ -86,6 +100,31 @@ store.postLogin = (userName, password) => {
         name: userName,
         password: password
       }
+    }).then(data => {
+      resolve(data);
+    }, err => {
+      reject(err);
+    });
+  });
+};
+
+store.commitReply = (comment) => {
+  return new Promise((resolve, reject) => {
+    ajax_post({
+      url: `//back.fyq2yj.cn/comment/new`,
+      data: comment
+    }).then(data => {
+      resolve(data);
+    }, err => {
+      reject(err);
+    });
+  });
+};
+store.secondReply = (id, comment) => {
+  return new Promise((resolve, reject) => {
+    ajax_post({
+      url: `//localhost:8823/comment/reply/${id}`,
+      data: comment
     }).then(data => {
       resolve(data);
     }, err => {

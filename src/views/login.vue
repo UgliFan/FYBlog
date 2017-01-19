@@ -122,8 +122,8 @@
     },
     methods: {
       routeEnter() {
-        if (this.$route.params.rdt) {
-          this.rdt = this.$route.params.rdt;
+        if (this.$route.query.rdt) {
+          this.rdt = this.$route.query.rdt;
         }
         this.$store.dispatch({
           type: CHANGE_NAV,
