@@ -86,8 +86,8 @@
 </style>
 <script>
   import { CHANGE_NAV } from '../vuex/actions';
-  import nvHeader from '../components/Header.vue';
-  import comment from '../components/Comment.vue';
+  import nvHeader from '../components/Header';
+  import comment from '../components/Comment';
   import store from '../libs/data';
 
   import '../styles/markdown.scss';

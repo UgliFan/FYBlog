@@ -10,6 +10,7 @@
       <a v-if="funcType === 3" class="header-btn back-only" @click="goBack"><i class="iconfont icon-back"></i></a>
     </header>
     <SideNav :nav-stat="NAV_STAT"></SideNav>
+    <message></message>
   </div>
 </template>
 <style lang="scss">
@@ -80,6 +81,7 @@
   import { TRIGGER_NAV } from '../vuex/actions';
   import { mapGetters } from 'vuex';
   import SideNav from './SideNav';
+  import Message from './Message';
 
   export default {
     data() {
@@ -101,7 +103,7 @@
       }
     },
     components: {
-      SideNav
+      SideNav, Message
     },
     methods: {
       triggerSlide() {

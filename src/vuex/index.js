@@ -30,6 +30,10 @@ const store = new Vuex.Store({
       icon: 'iconfont icon-question'
     }],
     activeNav: {},
+    msgInfo: {
+      type: 0,
+      msg: ''
+    },
     userInfo: {}
   },
   getters: {
@@ -41,6 +45,9 @@ const store = new Vuex.Store({
     },
     ACTIVE_NAV(state) {
       return state.activeNav;
+    },
+    MSG_INFO(state) {
+      return state.msgInfo;
     },
     USER_INFO(state) {
       return state.userInfo;
@@ -55,6 +62,9 @@ const store = new Vuex.Store({
     },
     [mutations.SET_USER_INFO](state, payload) {
       state.userInfo = payload.user;
+    },
+    [mutations.SET_MESSAGE](state, payload) {
+      state.msgInfo = payload.msgInfo;
     }
   },
   actions: {
@@ -66,6 +76,9 @@ const store = new Vuex.Store({
     },
     [actions.SET_USER]({ commit }, payload) {
       commit(mutations.SET_USER_INFO, payload);
+    },
+    [actions.TRIGGER_MESSAGE]({ commit }, payload) {
+      commit(mutations.SET_MESSAGE, payload);
     }
   }
 });

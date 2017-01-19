@@ -29,17 +29,18 @@
 </style>
 <script>
   import { mapGetters } from 'vuex';
-  import { CHANGE_NAV } from '../vuex/actions';
-  import nvHeader from '../components/Header.vue';
-  import Swipe from '../components/Swipe.vue';
-  import BlogItem from '../components/BlogItem.vue';
+  import { CHANGE_NAV, TRIGGER_MESSAGE } from '../vuex/actions';
+  import nvHeader from '../components/Header';
+  import Swipe from '../components/Swipe';
+  import BlogItem from '../components/BlogItem';
   import store from '../libs/data';
 
   export default {
     data() {
       return {
         swipeList: [],
-        recomList: []
+        recomList: [],
+        alertVisible: true
       };
     },
     computed: mapGetters([
