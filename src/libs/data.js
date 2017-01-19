@@ -66,6 +66,42 @@ store.getBlogList = () => {
   });
 };
 
+store.getCreamList = () => {
+  return new Promise((resolve, reject) => {
+    ajax_get({
+      url: '//back.fyq2yj.cn/blog/page/hot'
+    }).then(data => {
+      resolve(data);
+    }, err => {
+      reject(err);
+    });
+  });
+};
+
+store.getBlogSlide = () => {
+  return new Promise((resolve, reject) => {
+    ajax_get({
+      url: '//back.fyq2yj.cn/blog/recommend/slide'
+    }).then(data => {
+      resolve(data);
+    }, err => {
+      reject(err);
+    });
+  });
+};
+
+store.getRecomTop5 = () => {
+  return new Promise((resolve, reject) => {
+    ajax_get({
+      url: '//back.fyq2yj.cn/blog/recommend/top5'
+    }).then(data => {
+      resolve(data);
+    }, err => {
+      reject(err);
+    });
+  });
+};
+
 store.getBlogInfo = (id) => {
   return new Promise((resolve, reject) => {
     ajax_get({

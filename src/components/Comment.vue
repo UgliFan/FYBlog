@@ -1,6 +1,6 @@
 <template>
   <section class="comment-area">
-    <h4 class="comment-title">评论（{{commentCount}}）<router-link :to="{name: 'reply', params: {id: blogId}, query: {type: 'blog'}}">回复</router-link></h4>
+    <h4 class="comment-title">评论（{{commentCount}}）<router-link :to="{name: 'reply', params: {id: blogId}, query: {type: 'blog'}}">留言</router-link></h4>
     <div v-for="(comment, index) in list" class="comment-row">
       <div class="icon">
         <i v-if="!comment.icon" class="iconfont icon-people"></i>
@@ -31,6 +31,7 @@
         </div>
       </div>
     </div>
+    <div v-if="list.length === 0" class="comment-empty">还没有评论, 快来抢沙发吧~</div>
   </section>
 </template>
 <style lang="scss">
@@ -53,7 +54,16 @@
         border: 1px solid $blue;
         padding: 0 10px;
         color: $blue;
+        background-color: $white;
       }
+    }
+    .comment-empty {
+      width: 100%;
+      padding: 30px 0;
+      font-size: 14px;
+      line-height: 20px;
+      color: $grayer;
+      text-align: center;
     }
     .comment-row {
       min-height: 100px;
@@ -196,7 +206,6 @@
       }
     },
     mounted() {
-      console.log('[Comment: Mounted]');
       store.getBlogComment(this.blogId).then(data => {
         this.list = data.result;
         this.total = data.total;
