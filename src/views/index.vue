@@ -29,7 +29,7 @@
 </style>
 <script>
   import { mapGetters } from 'vuex';
-  import { CHANGE_NAV, TRIGGER_MESSAGE } from '../vuex/actions';
+  import { CHANGE_NAV } from '../vuex/actions';
   import nvHeader from '../components/Header';
   import Swipe from '../components/Swipe';
   import BlogItem from '../components/BlogItem';
@@ -39,8 +39,7 @@
     data() {
       return {
         swipeList: [],
-        recomList: [],
-        alertVisible: true
+        recomList: []
       };
     },
     computed: mapGetters([
