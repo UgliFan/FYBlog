@@ -4,6 +4,7 @@
     <section class="container-body">
       <ul class="blog-list">
         <blog-item v-for="blog in list" :blog="blog" :key="blog"></blog-item>
+        <li v-if="list.length === 0" class="blog-empty">博主在偷懒, 敬请期待。。。</li>
       </ul>
     </section>
   </div>
@@ -13,6 +14,13 @@
   .blog-list {
     list-style: none;
     width: 100%;
+    .blog-empty {
+      padding: 20px;
+      line-height: 30px;
+      font-size: 16px;
+      color: $grayer;
+      text-align: center;
+    }
   }
 </style>
 <script>
@@ -54,7 +62,7 @@
         this.getList();
       },
       getList() {
-        store.getBlogList().then(data => {
+        store.getCreamList().then(data => {
           this.list = data.result;
           this.total = data.total;
         });

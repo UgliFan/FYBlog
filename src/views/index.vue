@@ -2,12 +2,14 @@
   <div>
     <nv-header></nv-header>
     <section class="container-body">
-      <swipe :swipe-list="swipeList"></swipe>
-      <h4 class="recommend-title">精选推荐 Top 5.</h4>
+      <swipe v-if="swipeList.length > 0" :swipe-list="swipeList"></swipe>
+      <h4 class="recommend-title">吐血推荐 Top 5.</h4>
       <ul class="recommend-list">
         <blog-item v-for="recom in recomList" :key="recom" :blog="recom"></blog-item>
+        <li v-if="recomList.length === 0" class="recom-empty">博主在偷懒, 敬请期待。。。</li>
       </ul>
     </section>
+    <div class="footer">©2017 by UgliFan. All rights reserved.</div>
   </div>
 </template>
 <style lang="scss">
@@ -22,9 +24,26 @@
     color: $red;
   }
   .recommend-list {
+    min-height:300px;
     .blog-item {
       border-bottom: 1px solid $borderYellow;
     }
+    .recom-empty {
+      padding: 20px;
+      line-height: 30px;
+      font-size: 16px;
+      color: $grayer;
+      text-align: center;
+    }
+  }
+  .footer {
+    text-align: center;
+    padding: 10px 0;
+    line-height: 20px;
+    font-size: 14px;
+    color: $grayer;
+    background-color: $bgGray;
+    box-shadow: 0 0 5px 0 rgba(0,0,0,.26) inset;
   }
 </style>
 <script>
@@ -64,9 +83,11 @@
             });
           }
         });
-        store.getBlogList().then(data => {
-          this.swipeList = data.result.slice(0, 5);
-          this.recomList = data.result.slice(0, 5);
+        store.getBlogSlide().then(data => {
+          this.swipeList = data.result;
+        });
+        store.getRecomTop5().then(data => {
+          this.recomList = data.result;
         });
       }
     }

@@ -163,7 +163,6 @@
       },
       reInitPages() {
         let children = this.$children;
-        this.noDrag = children.length === 1 && this.noDragWhenSingle;
         let pages = [];
         let staticPages = [];
         this.index = 0;
@@ -183,12 +182,13 @@
             }
           }
         });
+        this.noDrag = pages.length === 1 && this.noDragWhenSingle;
         this.pages = pages;
         this.staticPages = staticPages;
       },
       doAnimate(towards, options) {
-        if (this.$children.length === 0) return;
-        if (!options && this.$children.length < 2) return;
+        if (this.pages.length === 0) return;
+        if (!options && this.pages.length < 2) return;
         let prevPage, nextPage, currentPage, pageWidth, offsetLeft;
         let speed = this.speed || 300;
         let index = this.index;
@@ -239,9 +239,9 @@
             newIndex = 0;
           }
         }
-        removeClass(this.staticPages[newIndex], 'hide');
-        addClass(this.staticPages[index], 'hide');
         let callback = () => {
+          removeClass(this.staticPages[newIndex], 'hide');
+          addClass(this.staticPages[index], 'hide');
           if (newIndex !== undefined) {
             var newPage = this.$children[newIndex].$el;
             removeClass(oldPage, 'is-active');
