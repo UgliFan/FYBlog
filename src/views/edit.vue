@@ -12,7 +12,7 @@
 </style>
 <script>
   import { CHANGE_NAV } from '../vuex/actions';
-  import nvHeader from '../components/Header.vue';
+  import nvHeader from '../components/Header';
 
   export default {
     data() {

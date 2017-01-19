@@ -56,12 +56,13 @@
       input {
         width: 100%;
         height: 50px;
-        font-size: 18px;
+        font-size: 16px;
         line-height: 18px;
         border: 1px solid $gray;
         border-radius: $radius;
         background: $white!important;
         padding: 16px;
+        -webkit-appearance: none;
       }
     }
     .submit-area {
@@ -92,14 +93,14 @@
 </style>
 <script>
   import { CHANGE_NAV, SET_USER } from '../vuex/actions';
-  import nvHeader from '../components/Header.vue';
+  import nvHeader from '../components/Header';
   import store from '../libs/data';
 
   export default {
     data() {
       return {
         isLogin: false,
-        second: 5,
+        second: 3,
         timer: null,
         userName: '',
         password: '',
@@ -142,7 +143,7 @@
       },
       countDown() {
         this.timer = setInterval(() => {
-          if (this.second > 0) {
+          if (this.second > 1) {
             this.second = this.second - 1;
           } else {
             clearInterval(this.timer);
@@ -162,7 +163,9 @@
               type: SET_USER,
               user: data.result
             });
-            this.countDown();
+            this.$router.replace({
+              name: this.rdt
+            });
           }
         });
       }

@@ -19,8 +19,8 @@
   import { mapGetters } from 'vuex';
   import store from '../libs/data';
   import { CHANGE_NAV } from '../vuex/actions';
-  import nvHeader from '../components/Header.vue';
-  import BlogItem from '../components/BlogItem.vue';
+  import nvHeader from '../components/Header';
+  import BlogItem from '../components/BlogItem';
 
   export default {
     data() {

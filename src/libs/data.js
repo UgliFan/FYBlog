@@ -87,7 +87,6 @@ store.postLogin = (userName, password) => {
         password: password
       }
     }).then(data => {
-      console.log('post success');
       resolve(data);
     }, err => {
       reject(err);
