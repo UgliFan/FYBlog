@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nv-header :func-type="-1"></nv-header>
+    <nv-header :func-type="3"></nv-header>
     <section v-if="!isLogin" class="container-body">
       <div class="login-area">
         <div class="input-area">

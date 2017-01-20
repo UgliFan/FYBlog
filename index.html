@@ -13,6 +13,57 @@
     <link rel="stylesheet" href="static/iconfont/iconfont.css">
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <style>
+        .welcome {
+          font-family: "Helvetica-Neue", Helvetica, Arial, sans-serif;
+          position: absolute;
+          width: 300px;
+          margin: 0 auto;
+          left: 0;
+          right: 0;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+        .welcome .welcome-title {
+          width: 100%;
+          text-align: center;
+          height: 20px;
+          padding: 20px 0;
+          line-height: 20px;
+          font-size: 18px;
+          color: #f0ad4e;
+        }
+        .welcome .welcome-info {
+          width: 100%;
+          text-align: center;
+          height: 20px;
+          padding: 20px 0;
+          line-height: 20px;
+          font-size: 16px;
+          color: #666;
+        }
+        .welcome .welcome-info i {
+          display: inline-block;
+          width: 18px;
+          height: 18px;
+          line-height: 20px;
+          animation: rotate 1s linear infinite;
+          -webkit-animation: webkit-rotate 1s linear infinite;
+        }
+        @keyframes rotate {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        @-webkit-keyframes webkit-rotate {
+          from { -webkit-transform: rotate(0deg); }
+          to { -webkit-transform: rotate(360deg); }
+        }
+      </style>
+      <div class="welcome">
+        <div class="welcome-title">欢迎来到 <strong>UgliFan 的 Blog</strong> ~</div>
+        <div class="welcome-info"><i class="iconfont icon-loading"></i>系统正在努力加载中...</div>
+      </div>
+    </div>
   </body>
 </html>

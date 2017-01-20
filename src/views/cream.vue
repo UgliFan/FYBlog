@@ -2,19 +2,20 @@
   <div>
     <nv-header></nv-header>
     <section class="container-body">
-      <ul class="blog-list">
-        <blog-item v-for="blog in list" :blog="blog" :key="blog"></blog-item>
-        <li v-if="list.length === 0" class="blog-empty">博主在偷懒, 敬请期待。。。</li>
-      </ul>
+      <list-trans class-name="cream-list">
+        <blog-item v-for="blog in CREAM_DATA.list" :blog="blog" :key="blog"></blog-item>
+      </list-trans>
+      <scroll-load :loading="loading" :has-more="CREAM_DATA.hasMore" :callback="pageList"></scroll-load>
     </section>
   </div>
 </template>
 <style lang="scss">
   @import '../styles/variable.scss';
-  .blog-list {
+  .cream-list {
     list-style: none;
     width: 100%;
-    .blog-empty {
+    overflow-x: hidden;
+    .cream-empty {
       padding: 20px;
       line-height: 30px;
       font-size: 16px;
@@ -25,23 +26,27 @@
 </style>
 <script>
   import { mapGetters } from 'vuex';
-  import store from '../libs/data';
-  import { CHANGE_NAV } from '../vuex/actions';
+  import { CHANGE_NAV, SET_POS, AJAX_DATA } from '../vuex/actions';
   import nvHeader from '../components/Header';
   import BlogItem from '../components/BlogItem';
+  import ListTrans from '../components/ListTrans';
+  import ScrollLoad from '../components/ScrollLoad';
+  import store from '../libs/data';
+  import { pageUtils } from '../libs/mixin';
 
   export default {
+    mixins: [pageUtils],
     data() {
       return {
-        list: [],
+        loading: false,
         total: 0
       };
     },
     computed: mapGetters([
-      'NAV_LIST'
+      'NAV_LIST', 'SCROLL_POS', 'CREAM_DATA'
     ]),
     components: {
-      nvHeader, BlogItem
+      nvHeader, BlogItem, ListTrans, ScrollLoad
     },
     mounted() {
       this.routeEnter();
@@ -51,6 +56,7 @@
     },
     methods: {
       routeEnter() {
+        document.body.scrollTop = this.SCROLL_POS.cream;
         this.NAV_LIST.forEach((nav, index) => {
           if (nav.routerName === 'cream') {
             this.$store.dispatch({
@@ -59,14 +65,46 @@
             });
           }
         });
-        this.getList();
+        this.getInitList();
       },
-      getList() {
-        store.getCreamList().then(data => {
-          this.list = data.result;
+      getInitList() {
+        if (!this.CREAM_DATA.loaded) {
+          this.loading = true;
+          store.getCreamList().then(data => {
+            this.loading = false;
+            this.total = data.total;
+            this.$store.dispatch({
+              type: AJAX_DATA,
+              module: 'cream',
+              page: 0,
+              list: data.result,
+              hasMore: data.result.length === 20
+            });
+          });
+        }
+      },
+      pageList() {
+        this.loading = true;
+        store.getCreamList(this.CREAM_DATA.page + 1).then(data => {
+          this.loading = false;
           this.total = data.total;
+          this.$store.dispatch({
+            type: AJAX_DATA,
+            module: 'cream',
+            page: this.CREAM_DATA.page + 1,
+            list: this.CREAM_DATA.list.concat(data.result),
+            hasMore: data.result.length === 20
+          });
         });
       }
+    },
+    beforeRouteLeave(to, from, next) {
+      this.$store.dispatch({
+        type: SET_POS,
+        module: 'cream',
+        pos: document.body.scrollTop
+      });
+      next();
     }
   };
 </script>
