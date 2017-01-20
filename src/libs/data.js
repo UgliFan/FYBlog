@@ -54,10 +54,13 @@ var ajax_upload = (params) => {
   });
 };
 
-store.getBlogList = () => {
+store.getBlogList = (page) => {
   return new Promise((resolve, reject) => {
     ajax_get({
-      url: '//back.fyq2yj.cn/blog/page'
+      url: '//back.fyq2yj.cn/blog/page',
+      data: {
+        pagenum: page || 0
+      }
     }).then(data => {
       resolve(data);
     }, err => {
