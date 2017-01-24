@@ -4,8 +4,8 @@
     <section class="container-body">
       <swipe v-if="swipeList.length > 0" :swipe-list="swipeList"></swipe>
       <h4 class="recommend-title">吐血推荐 Top 5.</h4>
-      <list-trans class-name="recommend-list">
-        <blog-item v-for="(recom, index) in recomList" :key="recom" :blog="recom" :data-index="index"></blog-item>
+      <list-trans class-name="recommend-list" trans-name="fade">
+        <blog-item-cream v-for="(recom, index) in recomList" :key="recom" :blog="recom" :data-index="index"></blog-item-cream>
         <li v-if="!loading && recomList.length === 0" class="recom-empty" key="empty">博主在偷懒, 敬请期待。。。</li>
         <li v-if="loading" class="loading" key="loading"><i class="iconfont icon-loading"></i>正在努力加载中...</li>
       </list-trans>
@@ -27,6 +27,7 @@
   .recommend-list {
     min-height:300px;
     overflow-x: hidden;
+    padding: 10px;
     .blog-item {
       border-bottom: 1px solid $borderYellow;
     }
@@ -53,7 +54,7 @@
   import { CHANGE_NAV } from '../vuex/actions';
   import nvHeader from '../components/Header';
   import Swipe from '../components/Swipe';
-  import BlogItem from '../components/BlogItem';
+  import BlogItemCream from '../components/BlogItemCream';
   import ListTrans from '../components/ListTrans';
   import store from '../libs/data';
   import { pageUtils } from '../libs/mixin';
@@ -71,7 +72,7 @@
       'NAV_LIST'
     ]),
     components: {
-      nvHeader, Swipe, BlogItem, ListTrans
+      nvHeader, Swipe, BlogItemCream, ListTrans
     },
     mounted() {
       this.routeEnter();

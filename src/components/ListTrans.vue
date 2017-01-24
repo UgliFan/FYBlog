@@ -36,11 +36,21 @@
     },
     methods: {
       beforeEnter(el) {
-        el.style.transform = 'translateX(40%)';
+        if (this.transName === 'fade') {
+          el.style.opacity = 0;
+        } else {
+          el.style.transform = 'translateX(40%)';
+          el.style.WebkitTransform = 'translateX(40%)';
+        }
       },
       enter(el, done) {
         setTimeout(() => {
-          el.style.transform = 'translateX(0)';
+          if (this.transName === 'fade') {
+            el.style.opacity = 1;
+          } else {
+            el.style.transform = 'translateX(0)';
+            el.style.WebkitTransform = 'translateX(0)';
+          }
         }, el.dataset.index * 50);
       }
     }

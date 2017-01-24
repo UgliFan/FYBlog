@@ -2,8 +2,8 @@
   <div>
     <nv-header></nv-header>
     <section class="container-body">
-      <list-trans class-name="cream-list">
-        <blog-item v-for="blog in CREAM_DATA.list" :blog="blog" :key="blog"></blog-item>
+      <list-trans class-name="cream-list" trans-name="fade">
+        <blog-item-cream v-for="(blog, index) in CREAM_DATA.list" :blog="blog" :key="blog" :data-index="index"></blog-item-cream>
       </list-trans>
       <scroll-load :loading="loading" :has-more="CREAM_DATA.hasMore" :callback="pageList"></scroll-load>
     </section>
@@ -14,6 +14,7 @@
   .cream-list {
     list-style: none;
     width: 100%;
+    padding: 10px;
     overflow-x: hidden;
     .cream-empty {
       padding: 20px;
@@ -28,7 +29,7 @@
   import { mapGetters } from 'vuex';
   import { CHANGE_NAV, SET_POS, AJAX_DATA } from '../vuex/actions';
   import nvHeader from '../components/Header';
-  import BlogItem from '../components/BlogItem';
+  import BlogItemCream from '../components/BlogItemCream';
   import ListTrans from '../components/ListTrans';
   import ScrollLoad from '../components/ScrollLoad';
   import store from '../libs/data';
@@ -46,7 +47,7 @@
       'NAV_LIST', 'SCROLL_POS', 'CREAM_DATA'
     ]),
     components: {
-      nvHeader, BlogItem, ListTrans, ScrollLoad
+      nvHeader, BlogItemCream, ListTrans, ScrollLoad
     },
     mounted() {
       this.routeEnter();
