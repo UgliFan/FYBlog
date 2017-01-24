@@ -39,7 +39,7 @@
       text-align: center;
       font-size: 30px;
       color: $white;
-      margin: -30px auto 0;
+      margin: -40px auto 0;
       background: $white;
       border-radius: $radius;
       transform: rotateX(-20deg);
@@ -63,7 +63,7 @@
         box-shadow: 0 -2px 5px 0 rgba(255, 153, 0, 0.26);
       }
       &.rotate-enter-active, &.rotate-leave-active {
-        margin-top: -30px;
+        margin-top: -40px;
         transform: rotateX(-20deg);
         transition: all .3s linear;
       }

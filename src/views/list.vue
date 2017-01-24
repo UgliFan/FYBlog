@@ -2,7 +2,7 @@
   <div>
     <nv-header></nv-header>
     <section class="container-body">
-      <list-trans class-name="blog-list">
+      <list-trans class-name="blog-list" :page="LIST_DATA.page">
         <blog-item v-for="(blog, index) in LIST_DATA.list" :blog="blog" :key="blog" :data-index="index"></blog-item>
       </list-trans>
       <scroll-load :loading="loading" :has-more="LIST_DATA.hasMore" :callback="pageList"></scroll-load>
