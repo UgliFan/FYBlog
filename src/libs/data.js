@@ -1,6 +1,9 @@
 import { Promise } from 'es6-promise';
 import $ from 'jquery';
 
+// const origin = '//back.fyq2yj.cn';
+const origin = '//localhost:8823';
+
 let store = {};
 
 var ajax_get = (params) => {
@@ -45,7 +48,7 @@ var ajax_upload = (params) => {
     processData: false
   };
   return new Promise((resolve,reject)=>{
-    $.ajax($.extend(false,{}, defaultParam, params)).success(data => {
+    $.ajax($.extend(false,{}, defaultParam, params)).done(data => {
       data = typeof data === 'string' ? $.parseJSON(data) : data;
       resolve(data);
     }).fail(() => {
@@ -57,7 +60,7 @@ var ajax_upload = (params) => {
 store.getBlogList = (page) => {
   return new Promise((resolve, reject) => {
     ajax_get({
-      url: '//back.fyq2yj.cn/blog/page',
+      url: `${origin}/blog/page`,
       data: {
         pagenum: page || 0
       }
@@ -72,7 +75,7 @@ store.getBlogList = (page) => {
 store.getCreamList = () => {
   return new Promise((resolve, reject) => {
     ajax_get({
-      url: '//back.fyq2yj.cn/blog/page/hot'
+      url: `${origin}/blog/page/hot`
     }).then(data => {
       resolve(data);
     }, err => {
@@ -84,7 +87,7 @@ store.getCreamList = () => {
 store.getBlogSlide = () => {
   return new Promise((resolve, reject) => {
     ajax_get({
-      url: '//back.fyq2yj.cn/blog/recommend/slide'
+      url: `${origin}/blog/recommend/slide`
     }).then(data => {
       resolve(data);
     }, err => {
@@ -96,7 +99,7 @@ store.getBlogSlide = () => {
 store.getRecomTop5 = () => {
   return new Promise((resolve, reject) => {
     ajax_get({
-      url: '//back.fyq2yj.cn/blog/recommend/top5'
+      url: `${origin}/blog/recommend/top5`
     }).then(data => {
       resolve(data);
     }, err => {
@@ -108,7 +111,7 @@ store.getRecomTop5 = () => {
 store.getBlogInfo = (id) => {
   return new Promise((resolve, reject) => {
     ajax_get({
-      url: `//back.fyq2yj.cn/blog/get_html/${id}`
+      url: `${origin}/blog/get_html/${id}`
     }).then(data => {
       resolve(data);
     }, err => {
@@ -119,7 +122,7 @@ store.getBlogInfo = (id) => {
 store.getBlogComment = (id) => {
   return new Promise((resolve, reject) => {
     ajax_get({
-      url: `//back.fyq2yj.cn/comment/page/${id}`,
+      url: `${origin}/comment/page/${id}`,
       data: {
         sortorder: 'asc'
       }
@@ -134,7 +137,7 @@ store.getBlogComment = (id) => {
 store.postLogin = (userName, password) => {
   return new Promise((resolve, reject) => {
     ajax_post({
-      url: `//back.fyq2yj.cn/user/login`,
+      url: `${origin}/user/login`,
       data: {
         name: userName,
         password: password
@@ -150,7 +153,7 @@ store.postLogin = (userName, password) => {
 store.commitReply = (comment) => {
   return new Promise((resolve, reject) => {
     ajax_post({
-      url: `//back.fyq2yj.cn/comment/new`,
+      url: `${origin}/comment/new`,
       data: comment
     }).then(data => {
       resolve(data);
@@ -159,11 +162,25 @@ store.commitReply = (comment) => {
     });
   });
 };
+
 store.secondReply = (id, comment) => {
   return new Promise((resolve, reject) => {
     ajax_post({
-      url: `//back.fyq2yj.cn/comment/reply/${id}`,
+      url: `${origin}/comment/reply/${id}`,
       data: comment
+    }).then(data => {
+      resolve(data);
+    }, err => {
+      reject(err);
+    });
+  });
+};
+
+store.register = (postData) => {
+  return new Promise((resolve, reject) => {
+    ajax_upload({
+      url: `${origin}/user/register`,
+      data: postData
     }).then(data => {
       resolve(data);
     }, err => {
