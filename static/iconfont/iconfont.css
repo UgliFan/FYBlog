@@ -1,10 +1,10 @@
 
 @font-face {font-family: "iconfont";
-  src: url('iconfont.eot?t=1484843864817'); /* IE9*/
-  src: url('iconfont.eot?t=1484843864817#iefix') format('embedded-opentype'), /* IE6-IE8 */
-  url('iconfont.woff?t=1484843864817') format('woff'), /* chrome, firefox */
-  url('iconfont.ttf?t=1484843864817') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
-  url('iconfont.svg?t=1484843864817#iconfont') format('svg'); /* iOS 4.1- */
+  src: url('iconfont.eot?t=1485265021683'); /* IE9*/
+  src: url('iconfont.eot?t=1485265021683#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('iconfont.woff?t=1485265021683') format('woff'), /* chrome, firefox */
+  url('iconfont.ttf?t=1485265021683') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('iconfont.svg?t=1485265021683#iconfont') format('svg'); /* iOS 4.1- */
 }
 
 .iconfont {
@@ -189,6 +189,8 @@
 .icon-profilefill:before { content: "\e77a"; }
 
 .icon-text:before { content: "\e791"; }
+
+.icon-preview:before { content: "\e617"; }
 
 .icon-attentionforbid:before { content: "\e7b2"; }
 

@@ -1,8 +1,8 @@
 import { Promise } from 'es6-promise';
 import $ from 'jquery';
 
-// const origin = '//back.fyq2yj.cn';
-const origin = '//localhost:8823';
+const origin = '//back.fyq2yj.cn';
+// const origin = '//localhost:8823';
 
 let store = {};
 
@@ -134,6 +134,19 @@ store.getBlogComment = (id) => {
   });
 };
 
+store.saveBlog = (postData) => {
+  return new Promise((resolve, reject) => {
+    ajax_post({
+      url: `${origin}/blog/new`,
+      data: postData
+    }).then(data => {
+      resolve(data);
+    }, err => {
+      reject(err);
+    });
+  });
+};
+
 store.postLogin = (userName, password) => {
   return new Promise((resolve, reject) => {
     ajax_post({
@@ -180,6 +193,19 @@ store.register = (postData) => {
   return new Promise((resolve, reject) => {
     ajax_upload({
       url: `${origin}/user/register`,
+      data: postData
+    }).then(data => {
+      resolve(data);
+    }, err => {
+      reject(err);
+    });
+  });
+};
+
+store.uploadImage = (postData) => {
+  return new Promise((resolve, reject) => {
+    ajax_upload({
+      url: `${origin}/file/upload`,
       data: postData
     }).then(data => {
       resolve(data);

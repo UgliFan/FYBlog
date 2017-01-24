@@ -33,6 +33,10 @@
           <label for="pass"><i class="iconfont icon-attentionforbid"></i>密码</label>
           <input type="password" id="pass" name="password" autocomplete="off"/>
         </div>
+        <div class="input-area">
+          <label for="passVerify"><i class="iconfont icon-attentionforbid"></i>再次输入密码</label>
+          <input type="password" id="passVerify" autocomplete="off"/>
+        </div>
         <div class="submit-area">
           <router-link class="login" :to="{name: 'login'}">登录</router-link>
           <a href="javascript:;" class="register" @click="register">注册</a>
@@ -52,7 +56,7 @@
     transform: translate(-50%, -50%);
     .input-area {
       width: 100%;
-      margin-bottom: 10px;
+      margin-bottom: 4px;
       &.inline {
         vertical-align: top;
         display: inline-block;
@@ -66,7 +70,7 @@
       label {
         display: block;
         width: 100%;
-        font-size: 18px;
+        font-size: 16px;
         font-weight: 700;
         line-height: 30px;
         i {
@@ -85,14 +89,12 @@
       }
       input[type="text"], input[type="password"] {
         width: 100%;
-        height: 42px;
+        height: 30px;
         font-size: 14px;
         line-height: 14px;
         border: 1px solid $gray;
         border-radius: $radius;
-        background: $white!important;
-        padding: 12px;
-        -webkit-appearance: none;
+        padding: 6px 12px;
       }
       .face-icon {
         width: 60px;
@@ -127,6 +129,7 @@
     .submit-area {
       width: 100%;
       text-align: center;
+      margin-top: 20px;
       a, button {
         display: inline-block;
         vertical-align: top;

@@ -116,7 +116,7 @@
         this.$router.go(-1);
       },
       routeGo(name) {
-        if (window.sessionStorage && window.sessionStorage.user && window.sessionStorage.user._id) {
+        if (window.sessionStorage && window.sessionStorage.user && JSON.parse(window.sessionStorage.user)._id) {
           this.$router.push({
             name: name
           });
@@ -128,7 +128,6 @@
       },
       saveClick() {
         this.callback();
-        this.$router.go(-1);
       }
     }
   };

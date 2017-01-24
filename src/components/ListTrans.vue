@@ -10,11 +10,13 @@
 </template>
 <style lang="scss">
 .slide-in-enter-active {
-  transform: translateX(40%);
+  opacity: 0;
+  transform: translateX(0);
   overflow: hidden;
-  transition: transform .3s linear;
+  transition: all .3s linear;
 }
 .slide-in-enter {
+  opacity: 1;
   transform: translateX(40%);
 }
 </style>
@@ -32,6 +34,14 @@
       tagType: {
         type: String,
         default: 'ul'
+      },
+      page: {
+        type: Number,
+        default: 0
+      },
+      pageSize: {
+        type: Number,
+        default: 20
       }
     },
     methods: {
@@ -39,6 +49,7 @@
         if (this.transName === 'fade') {
           el.style.opacity = 0;
         } else {
+          el.style.opacity = 0;
           el.style.transform = 'translateX(40%)';
           el.style.WebkitTransform = 'translateX(40%)';
         }
@@ -48,10 +59,11 @@
           if (this.transName === 'fade') {
             el.style.opacity = 1;
           } else {
+            el.style.opacity = 1;
             el.style.transform = 'translateX(0)';
             el.style.WebkitTransform = 'translateX(0)';
           }
-        }, el.dataset.index * 50);
+        }, (el.dataset.index - this.page * this.pageSize) * 50);
       }
     }
   };

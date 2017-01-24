@@ -2,7 +2,7 @@
   <div>
     <nv-header></nv-header>
     <section class="container-body">
-      <list-trans class-name="cream-list" trans-name="fade">
+      <list-trans class-name="cream-list" trans-name="fade" :page="CREAM_DATA.page">
         <blog-item-cream v-for="(blog, index) in CREAM_DATA.list" :blog="blog" :key="blog" :data-index="index"></blog-item-cream>
       </list-trans>
       <scroll-load :loading="loading" :has-more="CREAM_DATA.hasMore" :callback="pageList"></scroll-load>
