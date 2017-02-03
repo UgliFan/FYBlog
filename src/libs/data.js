@@ -119,6 +119,19 @@ store.getBlogInfo = (id) => {
     });
   });
 };
+
+store.zanBlog = (id) => {
+  return new Promise((resolve, reject) => {
+    ajax_post({
+      url: `${origin}/blog/zan/${id}`
+    }).then(data => {
+      resolve(data);
+    }, err => {
+      reject(err);
+    });
+  });
+};
+
 store.getBlogComment = (id) => {
   return new Promise((resolve, reject) => {
     ajax_get({
@@ -168,6 +181,30 @@ store.commitReply = (comment) => {
     ajax_post({
       url: `${origin}/comment/new`,
       data: comment
+    }).then(data => {
+      resolve(data);
+    }, err => {
+      reject(err);
+    });
+  });
+};
+
+store.zanComment = (id) => {
+  return new Promise((resolve, reject) => {
+    ajax_post({
+      url: `${origin}/comment/zan/${id}`
+    }).then(data => {
+      resolve(data);
+    }, err => {
+      reject(err);
+    });
+  });
+};
+
+store.caiComment = (id) => {
+  return new Promise((resolve, reject) => {
+    ajax_post({
+      url: `${origin}/comment/cai/${id}`
     }).then(data => {
       resolve(data);
     }, err => {

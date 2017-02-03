@@ -7,6 +7,7 @@
       </list-trans>
       <scroll-load :loading="loading" :has-more="CREAM_DATA.hasMore" :callback="pageList"></scroll-load>
     </section>
+    <confirm-dialog></confirm-dialog>
   </div>
 </template>
 <style lang="scss">
@@ -29,6 +30,7 @@
   import { mapGetters } from 'vuex';
   import { CHANGE_NAV, SET_POS, AJAX_DATA } from '../vuex/actions';
   import nvHeader from '../components/Header';
+  import confirmDialog from '../components/Confirm';
   import BlogItemCream from '../components/BlogItemCream';
   import ListTrans from '../components/ListTrans';
   import ScrollLoad from '../components/ScrollLoad';
@@ -47,7 +49,7 @@
       'NAV_LIST', 'SCROLL_POS', 'CREAM_DATA'
     ]),
     components: {
-      nvHeader, BlogItemCream, ListTrans, ScrollLoad
+      nvHeader, BlogItemCream, ListTrans, ScrollLoad, confirmDialog
     },
     mounted() {
       this.routeEnter();

@@ -43,6 +43,7 @@
         </div>
       </form>
     </section>
+    <confirm-dialog></confirm-dialog>
   </div>
 </template>
 <style lang="scss">
@@ -154,7 +155,8 @@
 </style>
 <script>
   import { CHANGE_NAV, TRIGGER_MESSAGE } from '../vuex/actions';
-  import nvHeader from '../components/Header.vue';
+  import nvHeader from '../components/Header';
+  import confirmDialog from '../components/Confirm';
   import loadImage from '../libs/image-to-canvas';
   import store from '../libs/data';
 
@@ -172,7 +174,7 @@
       '$route': 'routeEnter'
     },
     components: {
-      nvHeader
+      nvHeader, confirmDialog
     },
     methods: {
       routeEnter() {

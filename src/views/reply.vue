@@ -5,6 +5,7 @@
       <textarea v-model="replyContent"></textarea>
       <a class="btn-reply" href="javascript:;" @click="actionReply">提交回复</a>
     </section>
+    <confirm-dialog></confirm-dialog>
   </div>
 </template>
 <style lang="scss">
@@ -41,6 +42,7 @@
   import { mapGetters } from 'vuex';
   import { CHANGE_NAV, TRIGGER_MESSAGE } from '../vuex/actions';
   import nvHeader from '../components/Header';
+  import confirmDialog from '../components/Confirm';
 
   export default {
     data() {
@@ -55,7 +57,7 @@
       'USER_INFO'
     ]),
     components: {
-      nvHeader
+      nvHeader, confirmDialog
     },
     mounted() {
       this.routeEnter();
