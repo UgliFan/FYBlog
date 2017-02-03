@@ -119,6 +119,19 @@ store.getBlogInfo = (id) => {
     });
   });
 };
+
+store.zanBlog = (id) => {
+  return new Promise((resolve, reject) => {
+    ajax_post({
+      url: `${origin}/blog/zan/${id}`
+    }).then(data => {
+      resolve(data);
+    }, err => {
+      reject(err);
+    });
+  });
+};
+
 store.getBlogComment = (id) => {
   return new Promise((resolve, reject) => {
     ajax_get({

@@ -209,7 +209,6 @@
       store.getBlogComment(this.blogId).then(data => {
         this.list = data.result;
         this.total = data.total;
-        console.log(data.result);
       });
     }
   };

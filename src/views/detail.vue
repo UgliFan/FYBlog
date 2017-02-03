@@ -9,7 +9,7 @@
         <div class="statistics">
           <span class="statistics-item"><i class="iconfont icon-footprint"></i>{{blog.visit_count | formatNum}}</span>
           <span class="statistics-item reply"><i class="iconfont icon-message"></i>{{blog.reply_count | formatNum}}</span>
-          <span class="statistics-item zan"><i class="iconfont icon-appreciate"></i>{{blog.zan_count | formatNum}}</span>
+          <span :class="['statistics-item', 'zan', {'has-zan': hasZan}]" @click="zan"><i class="iconfont icon-appreciate"></i>{{blog.zan_count | formatNum}}</span>
         </div>
         <p v-html="blog.remark"></p>
       </div>
@@ -68,7 +68,12 @@
           color: $green;
         }
         &.zan {
-          color: $red;
+          cursor: pointer;
+          color: #f7908d;
+          &.has-zan {
+            cursor: default;
+            color: $red;
+          }
         }
       }
     }
@@ -86,7 +91,7 @@
   }
 </style>
 <script>
-  import { CHANGE_NAV } from '../vuex/actions';
+  import { CHANGE_NAV, TRIGGER_MESSAGE } from '../vuex/actions';
   import nvHeader from '../components/Header';
   import confirmDialog from '../components/Confirm';
   import comment from '../components/Comment';
@@ -97,7 +102,8 @@
   export default {
     data() {
       return {
-        blog: {}
+        blog: {},
+        hasZan: false
       };
     },
     components: {
@@ -122,13 +128,37 @@
         });
       },
       routeEnter(to, from) {
-        console.log('[Detail: RouteEnter]');
         this.changeTitle('文章加载中...');
         let blogId = this.$route.params.id;
         store.getBlogInfo(blogId).then(data => {
           this.changeTitle(data.result.title);
           this.blog = data.result;
         });
+      },
+      zan() {
+        if (!this.hasZan) {
+          store.zanBlog(this.$route.params.id).then(data => {
+            this.$store.dispatch({
+              type: TRIGGER_MESSAGE,
+              msgInfo: {
+                type: data.code === 0 ? 1 : 3,
+                msg: data.msg
+              }
+            });
+            if (data.code === 0) {
+              this.hasZan = true;
+              this.blog.zan_count = this.blog.zan_count + 1;
+            }
+          }, () => {
+            this.$store.dispatch({
+              type: TRIGGER_MESSAGE,
+              msgInfo: {
+                type: 2,
+                msg: '网络异常, 请稍后再试'
+              }
+            });
+          });
+        }
       }
     }
   };
