@@ -189,6 +189,30 @@ store.commitReply = (comment) => {
   });
 };
 
+store.zanComment = (id) => {
+  return new Promise((resolve, reject) => {
+    ajax_post({
+      url: `${origin}/comment/zan/${id}`
+    }).then(data => {
+      resolve(data);
+    }, err => {
+      reject(err);
+    });
+  });
+};
+
+store.caiComment = (id) => {
+  return new Promise((resolve, reject) => {
+    ajax_post({
+      url: `${origin}/comment/cai/${id}`
+    }).then(data => {
+      resolve(data);
+    }, err => {
+      reject(err);
+    });
+  });
+};
+
 store.secondReply = (id, comment) => {
   return new Promise((resolve, reject) => {
     ajax_post({

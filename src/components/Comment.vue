@@ -12,8 +12,8 @@
         <div class="comment-info">
           #{{page * pageSize + index + 1}}
           <span class="info-item date">{{comment.create_at | formatDate}}</span>
-          <span class="info-item zan"><i class="iconfont icon-appreciate"></i>{{comment.zan_count | formatNum}}</span>
-          <span class="info-item cai"><i class="iconfont icon-appreciate rotate-180"></i>{{comment.zan_count | formatNum}}</span>
+          <span class="info-item zan" @click="zan(comment._id, comment)"><i class="iconfont icon-appreciate"></i>{{comment.zan_count | formatNum}}</span>
+          <span class="info-item cai" @click="cai(comment._id, comment)"><i class="iconfont icon-appreciate rotate-180"></i>{{comment.cai_count | formatNum}}</span>
           <router-link :to="{name: 'reply', params: {id: comment._id}, query: {type: 'comment'}}" class="info-item reply">回复</router-link>
           <div v-if="comment.children && comment.children.length > 0" class="children-reply">
             <div v-for="(item, i) in comment.children" class="reply-row">
@@ -210,6 +210,18 @@
         this.list = data.result;
         this.total = data.total;
       });
+    },
+    methods: {
+      zan(id, comment) {
+        store.zanComment(id).then(data => {
+          comment.zan_count = comment.zan_count + 1;
+        });
+      },
+      cai(id, comment) {
+        store.caiComment(id).then(data => {
+          comment.cai_count = comment.cai_count + 1;
+        });
+      }
     }
   };
 </script>
