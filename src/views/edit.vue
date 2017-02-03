@@ -166,7 +166,12 @@
             }
           });
           if (data.code === 0) {
-            this.$router.go(-1);
+            this.$router.replace({
+              name: 'detail',
+              params: {
+                id: data.result._id
+              }
+            });
           }
         }, () => {
           this.$store.dispatch({
