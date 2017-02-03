@@ -4,6 +4,7 @@
     <section class="container-body">
       <div class="comming-soom">即将到来</div>
     </section>
+    <confirm-dialog></confirm-dialog>
   </div>
 </template>
 <style lang="scss">
@@ -14,6 +15,7 @@
   import { mapGetters } from 'vuex';
   import { CHANGE_NAV } from '../vuex/actions';
   import nvHeader from '../components/Header';
+  import confirmDialog from '../components/Confirm';
 
   export default {
     data() {
@@ -23,7 +25,7 @@
       'NAV_LIST'
     ]),
     components: {
-      nvHeader
+      nvHeader, confirmDialog
     },
     mounted() {
       this.routeEnter();

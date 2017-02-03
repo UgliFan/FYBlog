@@ -11,6 +11,7 @@
       </list-trans>
     </section>
     <div class="footer">©2017 by UgliFan. All rights reserved.</div>
+    <confirm-dialog></confirm-dialog>
   </div>
 </template>
 <style lang="scss">
@@ -53,6 +54,7 @@
   import { mapGetters } from 'vuex';
   import { CHANGE_NAV } from '../vuex/actions';
   import nvHeader from '../components/Header';
+  import confirmDialog from '../components/Confirm';
   import Swipe from '../components/Swipe';
   import BlogItemCream from '../components/BlogItemCream';
   import ListTrans from '../components/ListTrans';
@@ -72,7 +74,7 @@
       'NAV_LIST'
     ]),
     components: {
-      nvHeader, Swipe, BlogItemCream, ListTrans
+      nvHeader, Swipe, BlogItemCream, ListTrans, confirmDialog
     },
     mounted() {
       this.routeEnter();

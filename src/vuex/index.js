@@ -38,6 +38,11 @@ const store = new Vuex.Store({
       type: 0,
       msg: ''
     },
+    confirmInfo: {
+      type: 0,
+      msg: '',
+      callBack: null
+    },
     userInfo: {},
     listInfo: {
       loaded: false,
@@ -68,6 +73,9 @@ const store = new Vuex.Store({
     MSG_INFO(state) {
       return state.msgInfo;
     },
+    CONFIRM_INFO(state) {
+      return state.confirmInfo;
+    },
     USER_INFO(state) {
       return state.userInfo;
     },
@@ -97,6 +105,9 @@ const store = new Vuex.Store({
     [mutations.SET_MESSAGE](state, payload) {
       state.msgInfo = payload.msgInfo;
     },
+    [mutations.SET_CONFIRM](state, payload) {
+      state.confirmInfo = payload.confirmInfo;
+    },
     [mutations.SET_LIST_DATA](state, payload) {
       state.listInfo = payload.listInfo;
     },
@@ -123,6 +134,9 @@ const store = new Vuex.Store({
     },
     [actions.TRIGGER_MESSAGE]({ commit }, payload) {
       commit(mutations.SET_MESSAGE, payload);
+    },
+    [actions.TRIGGER_CONFIRM]({ commit }, payload) {
+      commit(mutations.SET_CONFIRM, payload);
     },
     [actions.AJAX_DATA]({ commit }, payload) {
       if (payload.module === 'list') {

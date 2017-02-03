@@ -16,6 +16,7 @@
       <div class="markdown-body" v-html="blog.content"></div>
       <comment v-if="blog._id" :blog-id="blog._id" :comment-count="blog.reply_count"></comment>
     </section>
+    <confirm-dialog></confirm-dialog>
   </div>
 </template>
 <style lang="scss">
@@ -87,6 +88,7 @@
 <script>
   import { CHANGE_NAV } from '../vuex/actions';
   import nvHeader from '../components/Header';
+  import confirmDialog from '../components/Confirm';
   import comment from '../components/Comment';
   import store from '../libs/data';
 
@@ -99,7 +101,7 @@
       };
     },
     components: {
-      nvHeader, comment
+      nvHeader, comment, confirmDialog
     },
     watch: {
       '$route'(to, from) {

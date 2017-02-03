@@ -17,6 +17,7 @@
         <p class="markdown-body preview-markdown" :style="previewHeight" v-if="preview" v-html="previewContent"></p>
       </div>
     </section>
+    <confirm-dialog></confirm-dialog>
   </div>
 </template>
 <style lang="scss">
@@ -111,8 +112,9 @@
   }
 </style>
 <script>
-  import { CHANGE_NAV, TRIGGER_MESSAGE } from '../vuex/actions';
+  import { CHANGE_NAV, TRIGGER_MESSAGE, TRIGGER_CONFIRM } from '../vuex/actions';
   import nvHeader from '../components/Header';
+  import confirmDialog from '../components/Confirm';
   import EditToolbar from '../components/EditToolbar';
   import store from '../libs/data';
   import marked from 'marked';
@@ -136,7 +138,7 @@
       };
     },
     components: {
-      nvHeader, EditToolbar
+      nvHeader, EditToolbar, confirmDialog
     },
     mounted() {
       this.routeEnter();
@@ -157,30 +159,39 @@
         });
       },
       saveBlog() {
-        store.saveBlog(this.postData).then(data => {
-          this.$store.dispatch({
-            type: TRIGGER_MESSAGE,
-            msgInfo: {
-              type: data.code === 0 ? 1 : 3,
-              msg: data.msg
+        this.$store.dispatch({
+          type: TRIGGER_CONFIRM,
+          confirmInfo: {
+            type: 3,
+            msg: '确认发表文章 ?',
+            callBack: () => {
+              store.saveBlog(this.postData).then(data => {
+                this.$store.dispatch({
+                  type: TRIGGER_MESSAGE,
+                  msgInfo: {
+                    type: data.code === 0 ? 1 : 3,
+                    msg: data.msg
+                  }
+                });
+                if (data.code === 0) {
+                  this.$router.replace({
+                    name: 'detail',
+                    params: {
+                      id: data.result._id
+                    }
+                  });
+                }
+              }, () => {
+                this.$store.dispatch({
+                  type: TRIGGER_MESSAGE,
+                  msgInfo: {
+                    type: 2,
+                    msg: '网络异常, 请稍后再试'
+                  }
+                });
+              });
             }
-          });
-          if (data.code === 0) {
-            this.$router.replace({
-              name: 'detail',
-              params: {
-                id: data.result._id
-              }
-            });
           }
-        }, () => {
-          this.$store.dispatch({
-            type: TRIGGER_MESSAGE,
-            msgInfo: {
-              type: 2,
-              msg: '网络异常, 请稍后再试'
-            }
-          });
         });
       },
       insertImage(image) {
