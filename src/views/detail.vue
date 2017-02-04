@@ -11,7 +11,10 @@
           <span class="statistics-item reply"><i class="iconfont icon-message"></i>{{blog.reply_count | formatNum}}</span>
           <span :class="['statistics-item', 'zan', {'has-zan': hasZan}]" @click="zan"><i class="iconfont icon-appreciate"></i>{{blog.zan_count | formatNum}}</span>
         </div>
-        <p v-html="blog.remark"></p>
+        <div class="tags" v-if="blog.tags && blog.tags.length > 0">
+          <span class="tag-item" v-for="tag in blog.tags"><i class="iconfont icon-tag"></i>{{tag}}</span>
+        </div>
+        <p v-html="blog.remark" :class="{'no-tag': !(blog.tags && blog.tags.length > 0)}"></p>
       </div>
       <div class="markdown-body" v-html="blog.content"></div>
       <comment v-if="blog._id" :blog-id="blog._id" :comment-count="blog.reply_count"></comment>
@@ -77,13 +80,36 @@
         }
       }
     }
-    p {
+    .tags {
       margin-top: 30px;
+      width: 100%;
+      height: 30px;
+      padding: 5px 0;
+      .tag-item {
+        display: inline-block;
+        vertical-align: top;
+        height: 20px;
+        line-height: 12px;
+        font-size: 12px;
+        padding: 4px 6px;
+        margin-right: 4px;
+        border-radius: $radiusSm;
+        color: $white;
+        background-color: $info;
+        i {
+          margin-right: 2px;
+        }
+      }
+    }
+    p {
       color: $grayer;
       font-size: 14px;
       border-radius: $radius;
       background-color: #fafafa;
       padding: 10px;
+      &.no-tag {
+        margin-top: 30px;
+      }
     }
   }
   .markdown-body {

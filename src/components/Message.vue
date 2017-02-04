@@ -77,6 +77,11 @@
     computed: mapGetters([
       'MSG_INFO'
     ]),
+    mounted() {
+      if (this.MSG_INFO.msg) {
+        this.closeMessage();
+      }
+    },
     methods: {
       closeMessage() {
         this.timer = setTimeout(() => {

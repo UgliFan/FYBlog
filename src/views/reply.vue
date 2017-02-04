@@ -79,6 +79,16 @@
       },
       actionReply() {
         if (!this.committing) {
+          if (!this.replyContent) {
+            this.$store.dispatch({
+              type: TRIGGER_MESSAGE,
+              msgInfo: {
+                type: 3,
+                msg: '评论内容不能为空'
+              }
+            });
+            return false;
+          }
           this.committing = true;
           if (this.commentType === 'blog') {
             store.commitReply({
