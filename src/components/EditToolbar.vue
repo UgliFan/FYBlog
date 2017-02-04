@@ -12,7 +12,7 @@
   @import '../styles/variable.scss';
   .edit-toolbar {
     position: absolute;
-    top: 204px;
+    top: 274px;
     height: 40px;
     width: 100%;
     border-radius: $radius $radius 0 0;

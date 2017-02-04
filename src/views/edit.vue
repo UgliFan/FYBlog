@@ -10,6 +10,13 @@
         <label for="blogRemark">摘要</label>
         <textarea id="blogRemark" placeholder="可以写一点摘要引起读者的注意 ~" v-model="postData.remark"></textarea>
       </div>
+      <div class="blog-edit-block">
+        <label for="blogTag">Tag</label>
+        <div id="blogTag" class="blog-tags">
+          <span v-for="(tag, index) in postData.tags" @click="removeTag(index)">{{tag}}<i class="iconfont icon-close"></i></span>
+          <input type="text" placeholder="输入Tag" @keyup.enter.space="addTag($event)" @keyup.delete="removeTag(postData.tags.length - 1)"/>
+        </div>
+      </div>
       <div class="blog-edit-content" >
         <label for="blogContent">正文内容<span><i class="iconfont icon-warn"></i>请使用markdown语法书写</span></label>
         <edit-toolbar :callback="insertImage" :range="range" :preview-blog="previewBlog"></edit-toolbar>
@@ -55,7 +62,7 @@
       }
       textarea {
         width: 100%;
-        height: 70px;
+        height: 60px;
         padding: 6px 12px;
         line-height: 18px;
         font-size: 12px;
@@ -65,13 +72,68 @@
         box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
         color: $graySt;
       }
+      .blog-tags {
+        width: 100%;
+        height: 40px;
+        font-size: 16px;
+        margin: 0;
+        border: 1px solid $gray;
+        border-radius: $radius;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        color: $blackSt;
+        span {
+          position: relative;
+          display: inline-block;
+          max-width: 80px;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          margin: 4px;
+          height: 30px;
+          padding: 6px 20px 6px 6px;
+          line-height: 18px;
+          font-size: 12px;
+          vertical-align: top;
+          border-radius: $radiusSm;
+          box-shadow: 0 0 5px 0 rgba(0,0,0,.26);
+          background-color: $info;
+          color: $white;
+          i {
+            display: inline-block;
+            position: absolute;
+            text-align: center;
+            top: 0;
+            right: 0;
+            width: 20px;
+            height: 30px;
+            line-height: 31px;
+            font-size: 10px;
+            font-weight: 700;
+            vertical-align: top;
+            color: $white;
+          }
+        }
+        input {
+          width: 100px;
+          box-shadow: none;
+          height: 38px;
+          padding: 6px;
+          line-height: 26px;
+          font-size: 12px;
+          margin: 0;
+          border: 0;
+          color: $blackSt;
+        }
+      }
     }
     .blog-edit-content {
       position: absolute;
       top: 0;
       left: 10px;
       right: 10px;
-      padding-top: 180px;
+      padding-top: 250px;
       z-index: 1;
       label {
         display: block;
@@ -130,7 +192,8 @@
           title: '',
           remark: '',
           content: '',
-          author: window.sessionStorage.user && JSON.parse(window.sessionStorage.user).name
+          author: window.sessionStorage.user && JSON.parse(window.sessionStorage.user).name,
+          tags: []
         },
         range: null,
         preview: false,
@@ -142,8 +205,8 @@
     },
     mounted() {
       this.routeEnter();
-      this.areaHeight = `height: ${window.screen.height - 280}px`;
-      this.previewHeight = `height: ${window.screen.height - 320}px`;
+      this.areaHeight = `height: ${window.innerHeight - 350}px`;
+      this.previewHeight = `height: ${window.innerHeight - 390}px`;
     },
     watch: {
       '$route': 'routeEnter'
@@ -166,7 +229,9 @@
               type: 3,
               msg: '确认发表文章 ?',
               callBack: () => {
-                store.saveBlog(this.postData).then(data => {
+                let postData = this.postData;
+                postData.tags = JSON.stringify(this.postData.tags);
+                store.saveBlog(postData).then(data => {
                   this.$store.dispatch({
                     type: TRIGGER_MESSAGE,
                     msgInfo: {
@@ -231,6 +296,26 @@
           this.previewContent = marked(this.postData.content);
         }
         this.preview = !this.preview;
+      },
+      removeTag(index) {
+        this.postData.tags.splice(index, 1);
+      },
+      addTag(e) {
+        if (!e.target.value) {
+          return false;
+        }
+        if (this.postData.tags.length < 3) {
+          this.postData.tags.push(e.target.value);
+        } else {
+          this.$store.dispatch({
+            type: TRIGGER_MESSAGE,
+            msgInfo: {
+              type: 3,
+              msg: '最多只能添加三个Tag'
+            }
+          });
+        }
+        e.target.value = '';
       }
     }
   };
