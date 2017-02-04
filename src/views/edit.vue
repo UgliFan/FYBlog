@@ -159,40 +159,50 @@
         });
       },
       saveBlog() {
-        this.$store.dispatch({
-          type: TRIGGER_CONFIRM,
-          confirmInfo: {
-            type: 3,
-            msg: '确认发表文章 ?',
-            callBack: () => {
-              store.saveBlog(this.postData).then(data => {
-                this.$store.dispatch({
-                  type: TRIGGER_MESSAGE,
-                  msgInfo: {
-                    type: data.code === 0 ? 1 : 3,
-                    msg: data.msg
-                  }
-                });
-                if (data.code === 0) {
-                  this.$router.replace({
-                    name: 'detail',
-                    params: {
-                      id: data.result._id
+        if (this.postData.title && this.postData.content) {
+          this.$store.dispatch({
+            type: TRIGGER_CONFIRM,
+            confirmInfo: {
+              type: 3,
+              msg: '确认发表文章 ?',
+              callBack: () => {
+                store.saveBlog(this.postData).then(data => {
+                  this.$store.dispatch({
+                    type: TRIGGER_MESSAGE,
+                    msgInfo: {
+                      type: data.code === 0 ? 1 : 3,
+                      msg: data.msg
                     }
                   });
-                }
-              }, () => {
-                this.$store.dispatch({
-                  type: TRIGGER_MESSAGE,
-                  msgInfo: {
-                    type: 2,
-                    msg: '网络异常, 请稍后再试'
+                  if (data.code === 0) {
+                    this.$router.replace({
+                      name: 'detail',
+                      params: {
+                        id: data.result._id
+                      }
+                    });
                   }
+                }, () => {
+                  this.$store.dispatch({
+                    type: TRIGGER_MESSAGE,
+                    msgInfo: {
+                      type: 2,
+                      msg: '网络异常, 请稍后再试'
+                    }
+                  });
                 });
-              });
+              }
             }
-          }
-        });
+          });
+        } else {
+          this.$store.dispatch({
+            type: TRIGGER_MESSAGE,
+            msgInfo: {
+              type: 3,
+              msg: '标题或内容不能为空'
+            }
+          });
+        }
       },
       insertImage(image) {
         let imageStr = `<img src="//back.fyq2yj.cn/upload${image.position}" alt="${image.name}"/>\n`;

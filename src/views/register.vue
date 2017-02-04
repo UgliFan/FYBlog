@@ -19,23 +19,23 @@
         </div>
         <div class="input-area">
           <label for="name"><i class="iconfont icon-people"></i>昵称</label>
-          <input type="text" id="name" name="name" autocomplete="off"/>
+          <input type="text" id="name" name="name" autocomplete="off" v-model="nickName"/>
         </div>
         <div class="input-area">
           <label for="email"><i class="iconfont icon-email"></i>邮箱</label>
-          <input type="text" id="email" name="email" autocomplete="off"/>
+          <input type="text" id="email" name="email" autocomplete="off" v-model="email"/>
         </div>
         <div class="input-area">
           <label for="tel"><i class="iconfont icon-mobile"></i>手机号</label>
-          <input type="text" id="tel" name="tel" autocomplete="off"/>
+          <input type="text" id="tel" name="tel" autocomplete="off" v-model="tel"/>
         </div>
         <div class="input-area">
           <label for="pass"><i class="iconfont icon-attentionforbid"></i>密码</label>
-          <input type="password" id="pass" name="password" autocomplete="off"/>
+          <input type="password" id="pass" name="password" autocomplete="off" v-model="pass"/>
         </div>
         <div class="input-area">
           <label for="passVerify"><i class="iconfont icon-attentionforbid"></i>再次输入密码</label>
-          <input type="password" id="passVerify" autocomplete="off"/>
+          <input type="password" id="passVerify" autocomplete="off" v-model="passRepeat"/>
         </div>
         <div class="submit-area">
           <router-link class="login" :to="{name: 'login'}">登录</router-link>
@@ -164,7 +164,12 @@
     data() {
       return {
         isLogin: false,
-        hasImg: false
+        hasImg: false,
+        nickName: '',
+        email: '',
+        tel: '',
+        pass: '',
+        passRepeat: ''
       };
     },
     mounted() {
@@ -218,6 +223,65 @@
         document.getElementById('file').click();
       },
       register() {
+        let emailRegex = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+        let phoneRegex = /^1(3[0-9]|4[57]|5[0-35-9]|7[0135678]|8[0-9])\d{8}$/;
+        if (!this.nickName) {
+          this.$store.dispatch({
+            type: TRIGGER_MESSAGE,
+            msgInfo: {
+              type: 3,
+              msg: '昵称不能为空'
+            }
+          });
+          return false;
+        } else if (!this.email || !emailRegex.test(this.email)) {
+          this.$store.dispatch({
+            type: TRIGGER_MESSAGE,
+            msgInfo: {
+              type: 3,
+              msg: '请填写正确的邮箱地址'
+            }
+          });
+          return false;
+        } else if (!this.tel || !phoneRegex.test(this.tel)) {
+          this.$store.dispatch({
+            type: TRIGGER_MESSAGE,
+            msgInfo: {
+              type: 3,
+              msg: '请填写正确的手机号'
+            }
+          });
+          return false;
+        } else if (!this.pass) {
+          this.$store.dispatch({
+            type: TRIGGER_MESSAGE,
+            msgInfo: {
+              type: 3,
+              msg: '密码不能为空'
+            }
+          });
+          return false;
+        } else if (!this.passRepeat) {
+          this.$store.dispatch({
+            type: TRIGGER_MESSAGE,
+            msgInfo: {
+              type: 3,
+              msg: '请重复输入密码'
+            }
+          });
+          return false;
+        } else if (this.pass !== this.passRepeat) {
+          this.$store.dispatch({
+            type: TRIGGER_MESSAGE,
+            msgInfo: {
+              type: 3,
+              msg: '两次密码不一致, 请重新输入'
+            }
+          });
+          this.passRepeat = '';
+          return false;
+        }
+
         let formData = new FormData(document.getElementById('formData'));
         store.register(formData).then(data => {
           this.$store.dispatch({

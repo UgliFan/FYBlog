@@ -92,7 +92,7 @@
   }
 </style>
 <script>
-  import { CHANGE_NAV, SET_USER } from '../vuex/actions';
+  import { CHANGE_NAV, SET_USER, TRIGGER_MESSAGE } from '../vuex/actions';
   import nvHeader from '../components/Header';
   import store from '../libs/data';
 
@@ -155,19 +155,37 @@
         }, 1000);
       },
       submitLogin() {
-        store.postLogin(this.userName, this.password).then(data => {
-          if (data.code === 0) {
-            this.isLogin = true;
-            window.sessionStorage.user = JSON.stringify(data.result);
-            this.$store.dispatch({
-              type: SET_USER,
-              user: data.result
-            });
-            this.$router.replace({
-              name: this.rdt
-            });
-          }
-        });
+        if (this.userName && this.password) {
+          store.postLogin(this.userName, this.password).then(data => {
+            if (data.code === 0) {
+              this.isLogin = true;
+              window.sessionStorage.user = JSON.stringify(data.result);
+              this.$store.dispatch({
+                type: SET_USER,
+                user: data.result
+              });
+              this.$router.replace({
+                name: this.rdt
+              });
+            } else {
+              this.$store.dispatch({
+                type: TRIGGER_MESSAGE,
+                msgInfo: {
+                  type: 2,
+                  msg: data.msg
+                }
+              });
+            }
+          });
+        } else {
+          this.$store.dispatch({
+            type: TRIGGER_MESSAGE,
+            msgInfo: {
+              type: 3,
+              msg: '用户名密码不能为空'
+            }
+          });
+        }
       }
     }
   };
