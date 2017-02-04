@@ -1,8 +1,8 @@
 import { Promise } from 'es6-promise';
 import $ from 'jquery';
 
-// const origin = '//back.fyq2yj.cn';
-const origin = '//localhost:8823';
+const origin = '//back.fyq2yj.cn';
+// const origin = '//localhost:8823';
 
 let store = {};
 
