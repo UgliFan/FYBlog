@@ -35,6 +35,11 @@ const Issue = resolve => {
     resolve(require('../views/issue.vue'));
   });
 };
+const IssueReply = resolve => {
+  require.ensure(['../views/issue-reply.vue'], () => {
+    resolve(require('../views/issue-reply.vue'));
+  });
+};
 const Login = resolve => {
   require.ensure(['../views/login.vue'], () => {
     resolve(require('../views/login.vue'));
@@ -78,6 +83,10 @@ const routers = [{
   path: '/issue',
   name: 'issue',
   component: Issue
+}, {
+  path: '/issue-reply/:id',
+  name: 'issue-reply',
+  component: IssueReply
 }, {
   path: '/login',
   name: 'login',
