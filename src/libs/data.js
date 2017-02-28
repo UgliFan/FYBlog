@@ -226,6 +226,47 @@ store.secondReply = (id, comment) => {
   });
 };
 
+store.getIssueList = (page) => {
+  return new Promise((resolve, reject) => {
+    ajax_get({
+      url: `${origin}/issue/page`,
+      data: {
+        pagenum: page || 0
+      }
+    }).then(data => {
+      resolve(data);
+    }, err => {
+      reject(err);
+    });
+  });
+};
+
+store.saveIssue = (postData) => {
+  return new Promise((resolve, reject) => {
+    ajax_post({
+      url: `${origin}/issue/new`,
+      data: postData
+    }).then(data => {
+      resolve(data);
+    }, err => {
+      reject(err);
+    });
+  });
+};
+
+store.replyIssue = (id, postData) => {
+  return new Promise((resolve, reject) => {
+    ajax_post({
+      url: `${origin}/issue/reply/${id}`,
+      data: postData
+    }).then(data => {
+      resolve(data);
+    }, err => {
+      reject(err);
+    });
+  });
+};
+
 store.register = (postData) => {
   return new Promise((resolve, reject) => {
     ajax_upload({

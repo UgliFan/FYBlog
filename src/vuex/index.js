@@ -10,7 +10,8 @@ const store = new Vuex.Store({
     navStatus: false,
     scrollPos: {
       list: 0,
-      cream: 0
+      cream: 0,
+      issue: 0
     },
     navList: [{
       name: '推荐',
@@ -55,6 +56,12 @@ const store = new Vuex.Store({
       page: 0,
       list: [],
       hasMore: true
+    },
+    issueInfo: {
+      loaded: false,
+      page: 0,
+      list: [],
+      hasMore: true
     }
   },
   getters: {
@@ -84,6 +91,9 @@ const store = new Vuex.Store({
     },
     CREAM_DATA(state) {
       return state.creamInfo;
+    },
+    ISSUE_DATA(state) {
+      return state.issueInfo;
     }
   },
   mutations: {
@@ -95,6 +105,9 @@ const store = new Vuex.Store({
     },
     [mutations.SET_CREAM_SCROLL](state, payload) {
       state.scrollPos.cream = payload.pos;
+    },
+    [mutations.SET_ISSUE_SCROLL](state, payload) {
+      state.scrollPos.issue = payload.pos;
     },
     [mutations.SET_ACTIVE_NAV](state, payload) {
       state.activeNav = payload.nav;
@@ -113,6 +126,9 @@ const store = new Vuex.Store({
     },
     [mutations.SET_CREAM_DATA](state, payload) {
       state.creamInfo = payload.creamInfo;
+    },
+    [mutations.SET_ISSUE_DATA](state, payload) {
+      state.issueInfo = payload.issueInfo;
     }
   },
   actions: {
@@ -124,6 +140,8 @@ const store = new Vuex.Store({
         commit(mutations.SET_LIST_SCROLL, {pos: payload.pos});
       } else if (payload.module === 'cream') {
         commit(mutations.SET_CREAM_SCROLL, {pos: payload.pos});
+      } else if (payload.module === 'issue') {
+        commit(mutations.SET_ISSUE_SCROLL, {pos: payload.pos});
       }
     },
     [actions.CHANGE_NAV]({ commit }, payload) {
@@ -151,6 +169,15 @@ const store = new Vuex.Store({
       } else if (payload.module === 'cream') {
         commit(mutations.SET_CREAM_DATA, {
           creamInfo: {
+            loaded: true,
+            page: payload.page || 0,
+            list: payload.list || [],
+            hasMore: payload.hasMore === undefined ? true : payload.hasMore
+          }
+        });
+      } else if (payload.module === 'issue') {
+        commit(mutations.SET_ISSUE_DATA, {
+          issueInfo: {
             loaded: true,
             page: payload.page || 0,
             list: payload.list || [],

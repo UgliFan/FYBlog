@@ -45,6 +45,13 @@ body {
   opacity: 0.4;
 }
 
+.slider-show-enter-active, .slider-show-leave-active {
+  transition: height .3s linear;
+}
+.slider-show-enter, .slider-show-leave-to {
+  height: 0!important;
+}
+
 .rotate-180 {
   transform: rotate(180deg);
 }
