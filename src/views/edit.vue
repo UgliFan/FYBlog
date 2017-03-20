@@ -14,7 +14,7 @@
         <label for="blogTag">Tag</label>
         <div id="blogTag" class="blog-tags">
           <span v-for="(tag, index) in postData.tags" @click="removeTag(index)">{{tag}}<i class="iconfont icon-close"></i></span>
-          <input type="text" placeholder="输入Tag" @keyup.enter.space="addTag($event)" @keyup.delete="removeTag(postData.tags.length - 1)"/>
+          <input type="text" placeholder="输入Tag" @keyup.enter.space="addTag($event)" @keydown.delete="removeTag(postData.tags.length - 1)" v-model="tagInput"/>
         </div>
       </div>
       <div class="blog-edit-content" >
@@ -162,7 +162,7 @@
       }
       .preview-markdown {
         position: absolute;
-        top: 244px;
+        top: 314px;
         left: 0;
         width: 100%;
         padding: 10px;
@@ -188,6 +188,7 @@
       return {
         areaHeight: 'height: 300px',
         previewHeight: 'height: 300px',
+        tagInput: '',
         postData: {
           title: '',
           remark: '',
@@ -229,8 +230,13 @@
               type: 3,
               msg: '确认发表文章 ?',
               callBack: () => {
-                let postData = this.postData;
-                postData.tags = JSON.stringify(this.postData.tags);
+                let postData = {
+                  title: this.postData.title,
+                  remark: this.postData.remark,
+                  content: this.postData.content,
+                  author: this.postData.author,
+                  tags: JSON.stringify(this.postData.tags)
+                };
                 store.saveBlog(postData).then(data => {
                   this.$store.dispatch({
                     type: TRIGGER_MESSAGE,
@@ -298,14 +304,18 @@
         this.preview = !this.preview;
       },
       removeTag(index) {
+        if (this.tagInput.trim()) {
+          return false;
+        }
         this.postData.tags.splice(index, 1);
       },
       addTag(e) {
-        if (!e.target.value) {
+        if (!this.tagInput.trim()) {
+          this.tagInput = '';
           return false;
         }
         if (this.postData.tags.length < 3) {
-          this.postData.tags.push(e.target.value);
+          this.postData.tags.push(this.tagInput);
         } else {
           this.$store.dispatch({
             type: TRIGGER_MESSAGE,
@@ -315,7 +325,7 @@
             }
           });
         }
-        e.target.value = '';
+        this.tagInput = '';
       }
     }
   };

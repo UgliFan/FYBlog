@@ -44,7 +44,7 @@
       margin-bottom: 0;
     }
     .issue-title {
-      color: $blackSt;
+      color: $grayer;
       display: block;
       font-size: 14px;
       line-height: 24px;
@@ -94,11 +94,11 @@
     }
     .issue-content {
       position: relative;
-      font-size: 16px;
+      font-size: 14px;
       line-height: 20px;
       word-break: break-all;
       word-wrap: break-word;
-      color: $grayer;
+      color: $blackSt;
       padding: 10px 0;
       i {
         margin-right: 5px;

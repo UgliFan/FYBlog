@@ -100,7 +100,7 @@
       }
       i {
         font-size: 60px;
-        color: $gray;
+        color: $bgInfo;
       }
     }
     .author-info {

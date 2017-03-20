@@ -2,6 +2,7 @@
   <div>
     <nv-header :func-type="2"></nv-header>
     <section class="container-body">
+      <module-tip :tips="tips"></module-tip>
       <list-trans class-name="issue-list" trans-name="fade" :page="ISSUE_DATA.page">
         <issue-item v-for="(issue, index) in ISSUE_DATA.list" :issue="issue" :key="issue" :data-index="index"></issue-item>
       </list-trans>
@@ -34,6 +35,7 @@
   import ListTrans from '../components/ListTrans';
   import ScrollLoad from '../components/ScrollLoad';
   import confirmDialog from '../components/Confirm';
+  import ModuleTip from '../components/moduleTip';
   import store from '../libs/data';
   import { pageUtils } from '../libs/mixin';
 
@@ -42,14 +44,15 @@
     data() {
       return {
         loading: false,
-        total: 0
+        total: 0,
+        tips: '这里是Q&A (提问和解答)，如果您对本网站有什么意见和建议，可以在这边提出，管理员看到会及时回复。'
       };
     },
     computed: mapGetters([
       'NAV_LIST', 'SCROLL_POS', 'ISSUE_DATA'
     ]),
     components: {
-      nvHeader, IssueItem, ListTrans, ScrollLoad, confirmDialog
+      nvHeader, IssueItem, ListTrans, ScrollLoad, confirmDialog, ModuleTip
     },
     mounted() {
       this.routeEnter();
