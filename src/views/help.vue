@@ -35,7 +35,7 @@
   import ListTrans from '../components/ListTrans';
   import ScrollLoad from '../components/ScrollLoad';
   import confirmDialog from '../components/Confirm';
-  import ModuleTip from '../components/moduleTip';
+  import ModuleTip from '../components/ModuleTip';
   import store from '../libs/data';
   import { pageUtils } from '../libs/mixin';
 
